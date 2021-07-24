@@ -78,7 +78,6 @@ public:
     static ContentPreviewPageFactory *getInstance();
 private:
     bool m_enable = true;
-
 };
 
 #endif // CONTENTPREVIEWPAGEFACTORY_H
