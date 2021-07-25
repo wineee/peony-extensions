@@ -22,19 +22,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-#include(../../plugin-iface/plugin-iface.pri)
 include(../common.pri)
 
 SOURCES += \
+    base-preview-page.cpp \
         content-preview-page-factory.cpp \
     content-preview-page.cpp
+    other-preview-page.cpp
 
 HEADERS += \
+        base-preview-page.h \
         content-preview-page-factory.h \
+        other-preview-page.h \
         peony-qt-preview-file-content-plugin_global.h \ 
     content-preview-page.h
 
-CONFIG += debug link_pkgconfig plugin
+CONFIG += debug c++ link_pkgconfig plugin
 
 PKGCONFIG += peony
 
