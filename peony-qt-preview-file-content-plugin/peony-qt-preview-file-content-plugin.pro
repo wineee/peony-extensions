@@ -25,16 +25,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(../common.pri)
 
 SOURCES += \
+    audio-preview-page.cpp \
     base-preview-page.cpp \
         content-preview-page-factory.cpp \
-    content-preview-page.cpp
+    content-preview-page.cpp \
+    doc-preview-page.cpp \
+    image-preview-page.cpp \
+    pdf-preview-page.cpp \
+    video-preview-page.cpp
     other-preview-page.cpp
 
 HEADERS += \
+        audio-preview-page.h \
         base-preview-page.h \
         content-preview-page-factory.h \
+        doc-preview-page.h \
+        image-preview-page.h \
         other-preview-page.h \
-        peony-qt-preview-file-content-plugin_global.h \ 
+        pdf-preview-page.h \
+        peony-qt-preview-file-content-plugin_global.h \  \
+        video-preview-page.h
     content-preview-page.h
 
 CONFIG += debug c++ link_pkgconfig plugin
