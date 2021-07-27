@@ -19,7 +19,7 @@ public:
     explicit Slider(QWidget *parent = nullptr);
     ~Slider() = default;
 protected:
-    void mousePressEvent(QMouseEvent *ev);//重写QSlider的mousePressEvent事件
+    void mousePressEvent(QMouseEvent *ev);
 Q_SIGNALS:
     void MySliderClicked();
 };
@@ -31,8 +31,6 @@ class AudioPreviewPage : public BasePreviewPage
 public:
     explicit AudioPreviewPage(QWidget *parent = nullptr);
     ~AudioPreviewPage() = default;
-
-     void cancel() override;
 private:
     QPushButton *m_button;
     QPushButton *volume_button;
@@ -47,7 +45,9 @@ private:
     QMediaPlayer *m_player;
 
 public Q_SLOTS:
-    void updateInfo(FileInfo *info);
+    void updateInfo(FileInfo *info) override;
+public:
+    void cancel() override;
 };
 
 #endif // AUDIOPREVIEWPAGE_H

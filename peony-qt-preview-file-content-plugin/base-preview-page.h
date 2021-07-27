@@ -16,8 +16,10 @@ class BasePreviewPage : public QFrame
 public:
     BasePreviewPage(QWidget *parent = nullptr);
     ~BasePreviewPage() = default;
-
     virtual void cancel() = 0;
+
+public Q_SLOTS:
+    virtual void updateInfo(FileInfo *info) = 0;
 };
 
 #endif // BASEPREVIEWPAGE_H

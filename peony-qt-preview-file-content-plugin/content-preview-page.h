@@ -29,12 +29,14 @@
 
 #include "preview-page-plugin-iface.h"
 #include "file-info.h"
+#include "file-watcher.h"
 
 #include "base-preview-page.h"
 #include "other-preview-page.h"
 #include "audio-preview-page.h"
 
-using namespace Peony;
+using Peony::FileWatcher;
+using Peony::FileInfo;
 
 class ContentPreviewPage : public QStackedWidget, public Peony::PreviewPageIface
 {
@@ -64,7 +66,7 @@ private:
     BasePreviewPage *m_preview_widget[5];
 
     std::shared_ptr<FileInfo> m_info;
-    //std::shared_ptr<FileWatcher> m_watcher;
+    std::shared_ptr<FileWatcher> m_watcher;
 
     bool m_support = true;
 };

@@ -9,7 +9,6 @@
 #include <QMimeDatabase>
 #include <QLocale>
 #include <QResizeEvent>
-
 #include <QDebug>
 
 ContentPreviewPage::ContentPreviewPage(QWidget *parent) : QStackedWidget(parent)
@@ -50,6 +49,13 @@ void ContentPreviewPage::prepare(const QString &uri, PreviewType type) {
 
     m_info = FileInfo::fromUri(uri);
     m_support = uri.contains("file:///");
+
+    m_watcher = std::make_shared<FileWatcher>(uri);
+    connect(m_watcher.get(), &FileWatcher::locationChanged, [=](const QString &, const QString &newUri) {
+        this->prepare(newUri);
+        this->startPreview();
+    });
+    m_watcher->startMonitor();
 }
 
 void ContentPreviewPage::prepare(const QString &uri) {
@@ -58,8 +64,15 @@ void ContentPreviewPage::prepare(const QString &uri) {
 
 void ContentPreviewPage::startPreview() {
     qDebug() << "startPreview: " << m_current_uri<< " type:" << m_current_type;
+    if (m_info->displayName().isEmpty()) {
+        FileInfoJob j(m_info->uri());
+        j.querySync();
+    }
+
+    qDebug() << m_info->fileType();
+
     if (m_support) {
-        if (m_current_uri.contains(".mp3")) {
+        if (m_info->fileType().contains("audio")) {
             auto previewPage = qobject_cast<AudioPreviewPage*>(m_preview_widget[0]);
             previewPage->updateInfo(m_info.get());
             setCurrentWidget(previewPage);
@@ -95,12 +108,11 @@ bool ContentPreviewPage::eventFilter(QObject *obj, QEvent *ev) {
             width = qMin(width, 256);
             page->resizeIcon(QSize(width, width * 2/3));
         }
-   }
+    }
     return QWidget::eventFilter(obj, ev);
 }
 
-void ContentPreviewPage::paintEvent(QPaintEvent *e)
-{
+void ContentPreviewPage::paintEvent(QPaintEvent *e) {
     QPainter p(this);
     p.setCompositionMode(QPainter::CompositionMode_SourceIn);
     p.fillRect(this->rect(), this->palette().base());
