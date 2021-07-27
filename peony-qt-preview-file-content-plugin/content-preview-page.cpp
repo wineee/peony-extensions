@@ -26,13 +26,12 @@ ContentPreviewPage::ContentPreviewPage(QWidget *parent) : QStackedWidget(parent)
     m_other_preview_widget = previewPage;
 
     m_preview_widget[0] = new AudioPreviewPage(this);
+    m_preview_widget[1] = new TextPreviewPage(this);
     addWidget(m_other_preview_widget);
     addWidget(m_empty_tab_widget);
-    addWidget(m_preview_widget[0]);
-
-//    for (int cas = 0; cas < 1; ++cas) {
-//        addWidget(m_preview_widget[cas]);
-//    }
+    for (int cas = 0; cas < 2; ++cas) {
+        addWidget(m_preview_widget[cas]);
+    }
     setCurrentWidget(m_empty_tab_widget);
 }
 
@@ -74,6 +73,10 @@ void ContentPreviewPage::startPreview() {
     if (m_support) {
         if (m_info->fileType().contains("audio")) {
             auto previewPage = qobject_cast<AudioPreviewPage*>(m_preview_widget[0]);
+            previewPage->updateInfo(m_info.get());
+            setCurrentWidget(previewPage);
+        } else if (m_info->fileType().contains("text")) {
+            auto previewPage = qobject_cast<TextPreviewPage*>(m_preview_widget[1]);
             previewPage->updateInfo(m_info.get());
             setCurrentWidget(previewPage);
         } else {
@@ -118,4 +121,3 @@ void ContentPreviewPage::paintEvent(QPaintEvent *e) {
     p.fillRect(this->rect(), this->palette().base());
     QWidget::paintEvent(e);
 }
-

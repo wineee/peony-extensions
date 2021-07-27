@@ -1,4 +1,4 @@
-QT       += core gui widgets multimedia multimediawidgets #network webengine webenginewidgets webkit webkitwidgets
+QT += core gui widgets multimedia # multimediawidgets network webengine webenginewidgets webkit webkitwidgets
 
 TARGET = peony-qt-preview-file-content-plugin
 TEMPLATE = lib
@@ -24,19 +24,21 @@ SOURCES += \
   #  image-preview-page.cpp \
   #  pdf-preview-page.cpp \
   #  video-preview-page.cpp \
-    other-preview-page.cpp
+    other-preview-page.cpp \
+    text-preview-page.cpp
 
 HEADERS += \
     audio-preview-page.h \
     base-preview-page.h \
     content-preview-page-factory.h \
-  #      doc-preview-page.h \
-  #      image-preview-page.h \
+  #  doc-preview-page.h \
+  #  image-preview-page.h \
     other-preview-page.h \
-  #      pdf-preview-page.h \
+  #  pdf-preview-page.h \
     peony-qt-preview-file-content-plugin_global.h \
-  #      video-preview-page.h \
-    content-preview-page.h
+  #  video-preview-page.h \
+    content-preview-page.h \
+    text-preview-page.h
 
 target.path = $$[QT_INSTALL_LIBS]/peony-extensions
 INSTALLS += target
