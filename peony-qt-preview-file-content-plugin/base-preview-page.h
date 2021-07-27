@@ -3,16 +3,21 @@
 
 #include <QFrame>
 #include <QObject>
+#include <QWidget>
+#include "file-info.h"
+#include "file-info-job.h"
 
-class ContentPreviewPage;
+using Peony::FileInfoJob;
+using Peony::FileInfo;
 
 class BasePreviewPage : public QFrame
 {
-    friend class ContentPreviewPage;
     Q_OBJECT
 public:
-    explicit BasePreviewPage(QWidget *parent = nullptr);
-    ~BasePreviewPage();
+    BasePreviewPage(QWidget *parent = nullptr);
+    ~BasePreviewPage() = default;
+
+    virtual void cancel() = 0;
 };
 
 #endif // BASEPREVIEWPAGE_H

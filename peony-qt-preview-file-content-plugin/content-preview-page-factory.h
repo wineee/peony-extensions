@@ -24,27 +24,8 @@
 #define CONTENTPREVIEWPAGEFACTORY_H
 
 #include "peony-qt-preview-file-content-plugin_global.h"
-#include "peony-qt/preview-page-plugin-iface.h"
+#include "preview-page-plugin-iface.h"
 
-/*!
- * \brief The ContentPreviewPageFactory class
- *
- * \details This example is showing you how to
- * implement a preview page plugin for peony-qt.
- * We should start at implement the PreviewPagePluginIface
- * with your own factory.
- *
- * You have to declare your factory
- * as PreviewPagePluginIface derived class
- * and override all virtual method both
- * Peony::PreviewPagePluginIface and Peony::PluginIface provided.
- *
- * \note
- * You don't need declare the PreviewPageIface as a plugin interface,
- * But you should aslo implement your own PreviewPage
- * by deriving Peony::PreviewPageIface for the return value
- * as this class's createPreviewPage() method.
- */
 class PEONYQTPREVIEWFILECONTENTPLUGINSHARED_EXPORT ContentPreviewPageFactory : public QObject, public Peony::PreviewPagePluginIface
 {
     Q_OBJECT

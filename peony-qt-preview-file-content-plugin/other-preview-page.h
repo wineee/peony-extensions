@@ -14,13 +14,9 @@
 
 #include "base-preview-page.h"
 
-#include "peony-qt/file-info.h"
-#include "peony-qt/controls/icon-container.h"
-#include "peony-qt/thumbnail-manager.h"
-#include "peony-qt/file-info-job.h"
+#include "controls/icon-container.h"
+#include "thumbnail-manager.h"
 
-using Peony::FileInfoJob;
-using Peony::FileInfo;
 using Peony::ThumbnailManager;
 
 class OtherPreviewPage : public BasePreviewPage
@@ -29,9 +25,9 @@ class OtherPreviewPage : public BasePreviewPage
     Q_OBJECT
 private:
     explicit OtherPreviewPage(QWidget *parent = nullptr);
-    ~OtherPreviewPage();
+    ~OtherPreviewPage() = default;
 
-private Q_SLOTS:
+public Q_SLOTS:
     void updateInfo(FileInfo *info);
     void resizeIcon(QSize size);
 
@@ -47,6 +43,8 @@ private:
     //image
     QLabel *m_image_size;
     QLabel *m_image_format;
+public:
+    void cancel() override;
 };
 
 #endif // OTHERPREVIEWPAGE_H

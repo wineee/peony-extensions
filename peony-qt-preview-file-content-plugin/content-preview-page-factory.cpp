@@ -23,14 +23,14 @@
 #include "content-preview-page-factory.h"
 #include "content-preview-page.h"
 
-#include "peony-qt/controls/preview-page/preview-page-factory/preview-page-factory-manager.h"
+#include "controls/preview-page/preview-page-factory/preview-page-factory-manager.h"
 
 using Peony::PreviewPageFactoryManager;
 
 ContentPreviewPageFactory::ContentPreviewPageFactory(QObject *parent) : QObject (parent)
 {
-     auto manager = PreviewPageFactoryManager::getInstance();
-     manager->registerFactory(this->name(), static_cast<PreviewPagePluginIface*>(this));
+   //  auto manager = PreviewPageFactoryManager::getInstance();
+   //  manager->registerFactory(this->name(), static_cast<PreviewPagePluginIface*>(this));
 }
 
 ContentPreviewPageFactory::~ContentPreviewPageFactory()

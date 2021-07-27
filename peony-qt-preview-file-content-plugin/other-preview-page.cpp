@@ -38,10 +38,6 @@ OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_layout->addWidget(form, 1, 0);
 }
 
-OtherPreviewPage::~OtherPreviewPage() {
-
-}
-
 void OtherPreviewPage::updateInfo(FileInfo *info)
 {
     qDebug() << "FilePreviewPage::updateInfo";
@@ -55,7 +51,6 @@ void OtherPreviewPage::updateInfo(FileInfo *info)
         thumbnail.addFile(url.path());
     }
     //auto icon = QIcon::fromTheme(info->iconName(), QIcon::fromTheme("text-x-generic"));
-    //m_icon->setIcon(thumbnail.isNull()? icon: thumbnail);
     m_display_name_label->setText(info->displayName());
     m_type_label->setText(info->fileType());
 
@@ -91,4 +86,8 @@ void OtherPreviewPage::updateInfo(FileInfo *info)
 void OtherPreviewPage::resizeIcon(QSize size)
 {
     //m_icon->setIconSize(size);
+}
+
+void OtherPreviewPage::cancel() {
+
 }

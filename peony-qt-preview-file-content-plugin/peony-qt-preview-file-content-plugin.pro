@@ -1,59 +1,43 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2019-10-24T09:25:02
-#
-#-------------------------------------------------
-
-QT       += widgets multimedia multimediawidgets #network webengine webenginewidgets webkit webkitwidgets
+QT       += core gui widgets multimedia multimediawidgets #network webengine webenginewidgets webkit webkitwidgets
 
 TARGET = peony-qt-preview-file-content-plugin
 TEMPLATE = lib
 
 DEFINES += PEONYQTPREVIEWFILECONTENTPLUGIN_LIBRARY
-
-# The following define makes your compiler emit warnings if you use
-# any feature of Qt which has been marked as deprecated (the exact warnings
-# depend on your compiler). Please consult the documentation of the
-# deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += PEONYADMIN_LIBRARY
 
-# You can also make your code fail to compile if you use deprecated APIs.
-# In order to do so, uncomment the following line.
-# You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 include(../common.pri)
 
-SOURCES += \
-    audio-preview-page.cpp \
-    base-preview-page.cpp \
-        content-preview-page-factory.cpp \
-    content-preview-page.cpp \
-    doc-preview-page.cpp \
-    image-preview-page.cpp \
-    pdf-preview-page.cpp \
-    video-preview-page.cpp
-    other-preview-page.cpp
-
-HEADERS += \
-        audio-preview-page.h \
-        base-preview-page.h \
-        content-preview-page-factory.h \
-        doc-preview-page.h \
-        image-preview-page.h \
-        other-preview-page.h \
-        pdf-preview-page.h \
-        peony-qt-preview-file-content-plugin_global.h \  \
-        video-preview-page.h
-    content-preview-page.h
-
-CONFIG += debug c++ link_pkgconfig plugin
+CONFIG += debug c++11 link_pkgconfig plugin no_keywords
 
 PKGCONFIG += peony
 
-# DESTDIR += ../../testdir
+SOURCES += \
+    audio-preview-page.cpp \
+    base-preview-page.cpp \
+    content-preview-page-factory.cpp \
+    content-preview-page.cpp \
+  #  doc-preview-page.cpp \
+  #  image-preview-page.cpp \
+  #  pdf-preview-page.cpp \
+  #  video-preview-page.cpp \
+    other-preview-page.cpp
 
-unix {
-    target.path = $$[QT_INSTALL_LIBS]/peony-extensions
-    INSTALLS += target
-}
+HEADERS += \
+    audio-preview-page.h \
+    base-preview-page.h \
+    content-preview-page-factory.h \
+  #      doc-preview-page.h \
+  #      image-preview-page.h \
+    other-preview-page.h \
+  #      pdf-preview-page.h \
+    peony-qt-preview-file-content-plugin_global.h \
+  #      video-preview-page.h \
+    content-preview-page.h
+
+target.path = $$[QT_INSTALL_LIBS]/peony-extensions
+INSTALLS += target
+

@@ -1,25 +1,3 @@
-/*
- * Peony-Qt's Library
- *
- * Copyright (C) 2019, Tianjin KYLIN Information Technology Co., Ltd.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this library.  If not, see <https://www.gnu.org/licenses/>.
- *
- * Authors: Yue Lan <lanyue@kylinos.cn>
- *
- */
-
 #include "content-preview-page.h"
 
 #include <QVBoxLayout>
@@ -48,9 +26,14 @@ ContentPreviewPage::ContentPreviewPage(QWidget *parent) : QStackedWidget(parent)
     previewPage->installEventFilter(this);
     m_other_preview_widget = previewPage;
 
- //   addWidget(m_other_preview_widget);
- //   addWidget(m_empty_tab_widget);
+    m_preview_widget[0] = new AudioPreviewPage(this);
+    addWidget(m_other_preview_widget);
+    addWidget(m_empty_tab_widget);
+    addWidget(m_preview_widget[0]);
 
+//    for (int cas = 0; cas < 1; ++cas) {
+//        addWidget(m_preview_widget[cas]);
+//    }
     setCurrentWidget(m_empty_tab_widget);
 }
 
@@ -58,6 +41,7 @@ ContentPreviewPage::~ContentPreviewPage()
 {
     cancel();
 }
+
 
 void ContentPreviewPage::prepare(const QString &uri, PreviewType type) {
     qDebug() << "prepare: " << uri << " " << type;
@@ -73,22 +57,32 @@ void ContentPreviewPage::prepare(const QString &uri) {
 }
 
 void ContentPreviewPage::startPreview() {
-    qDebug() << "startPreview ";
+    qDebug() << "startPreview: " << m_current_uri<< " type:" << m_current_type;
     if (m_support) {
-        auto previewPage = qobject_cast<OtherPreviewPage*>(m_other_preview_widget);
-        previewPage->updateInfo(m_info.get());
-        setCurrentWidget(previewPage);
+        if (m_current_uri.contains(".mp3")) {
+            auto previewPage = qobject_cast<AudioPreviewPage*>(m_preview_widget[0]);
+            previewPage->updateInfo(m_info.get());
+            setCurrentWidget(previewPage);
+        } else {
+            auto previewPage = qobject_cast<OtherPreviewPage*>(m_other_preview_widget);
+            previewPage->updateInfo(m_info.get());
+            setCurrentWidget(previewPage);
+        }
     } else {
         QLabel *label = qobject_cast<QLabel*>(m_empty_tab_widget);
-        label->setText(tr("Can not preview this file."));
+        label->setText(tr("Cann not preview this file."));
     }
 }
 
 void ContentPreviewPage::cancel() {
-    qDebug() << "cancel ";
+    qDebug() << "in cancel ";
+
+    m_preview_widget[0]->cancel();
+
     setCurrentWidget(m_empty_tab_widget);
     QLabel *label = qobject_cast<QLabel*>(m_empty_tab_widget);
     label->setText(tr("Select the file you want to preview..."));
+    qDebug() << "out cancel";
 }
 
 bool ContentPreviewPage::eventFilter(QObject *obj, QEvent *ev) {
@@ -112,3 +106,4 @@ void ContentPreviewPage::paintEvent(QPaintEvent *e)
     p.fillRect(this->rect(), this->palette().base());
     QWidget::paintEvent(e);
 }
+

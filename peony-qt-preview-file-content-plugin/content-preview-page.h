@@ -20,17 +20,19 @@
  *
  */
 
+
 #ifndef CONTENTPREVIEWPAGE_H
 #define CONTENTPREVIEWPAGE_H
 
 #include <QStackedWidget>
 #include <memory>
 
-#include "peony-qt/preview-page-plugin-iface.h"
-#include "peony-qt/file-info.h"
+#include "preview-page-plugin-iface.h"
+#include "file-info.h"
 
 #include "base-preview-page.h"
 #include "other-preview-page.h"
+#include "audio-preview-page.h"
 
 using namespace Peony;
 
@@ -55,10 +57,12 @@ protected:
 
 private:
     QString m_current_uri;
-    Peony::PreviewPageIface::PreviewType m_current_type = Peony::PreviewPageIface::Other;
+    PreviewPageIface::PreviewType m_current_type = PreviewPageIface::Other;
 
     QWidget *m_empty_tab_widget;
     BasePreviewPage *m_other_preview_widget;
+    BasePreviewPage *m_preview_widget[5];
+
     std::shared_ptr<FileInfo> m_info;
     //std::shared_ptr<FileWatcher> m_watcher;
 
