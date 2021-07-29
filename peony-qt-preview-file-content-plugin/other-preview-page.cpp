@@ -13,9 +13,9 @@ OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     qDebug() << "init OtherPreviewPage";
     m_layout = new QGridLayout(this);
     setLayout(m_layout);
-//    m_icon = new Peony::IconContainer(this);
-//    m_icon->setIconSize(QSize(96, 96));
-//    m_layout->addWidget(m_icon);
+    m_icon = new QPushButton(this);
+    m_icon->setIconSize(QSize(96, 96));
+    m_layout->addWidget(m_icon);
     m_form = new QFormLayout(this);
     m_display_name_label = new QLabel(this);
     m_display_name_label->setWordWrap(true);
@@ -39,14 +39,13 @@ OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 void OtherPreviewPage::updateInfo(FileInfo *info)
 {
     qDebug() << "FilePreviewPage::updateInfo";
-//    auto thumbnail = ThumbnailManager::getInstance()->tryGetThumbnail(info->uri());
-//    if (!thumbnail.isNull()) {
-//        QUrl url = info->uri();
-//        thumbnail.addFile(url.path());
-//    }
-//    auto icon = QIcon::fromTheme(info->iconName(), QIcon::fromTheme("text-x-generic"));
-//    //m_icon->setIcon(thumbnail.isNull() ? icon : thumbnail);
-    //m_icon->setIcon();
+    auto thumbnail = ThumbnailManager::getInstance()->tryGetThumbnail(info->uri());
+    if (!thumbnail.isNull()) {
+        QUrl url = info->uri();
+        thumbnail.addFile(url.path());
+    }
+    auto icon = QIcon::fromTheme(info->iconName(), QIcon::fromTheme("text-x-generic"));
+    m_icon->setIcon(thumbnail.isNull() ? icon : thumbnail);
     QIcon tmp = QIcon::fromTheme("text-x-generic");
     m_display_name_label->setText(info->displayName());
     m_type_label->setText(info->fileType());

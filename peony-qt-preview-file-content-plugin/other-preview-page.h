@@ -13,7 +13,8 @@
 #include <QUrl>
 
 #include "base-preview-page.h"
-#include "controls/icon-container.h"
+//#include "controls/icon-container.h"
+#include <QPushButton>
 
 class OtherPreviewPage : public BasePreviewPage
 {
@@ -28,7 +29,7 @@ public Q_SLOTS:
 
 private:
     QGridLayout *m_layout;
-    Peony::IconContainer *m_icon;
+    QPushButton *m_icon;
     QFormLayout *m_form;
     QLabel *m_display_name_label;
     QLabel *m_type_label;
