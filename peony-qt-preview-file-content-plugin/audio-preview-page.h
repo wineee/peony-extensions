@@ -36,11 +36,8 @@ private:
     QPushButton *volume_button;
     QLayout *m_layout;
     Slider *m_progress;
-    Slider *m_volume_slider;
+//    Slider *m_volume_slider;
     QTimer *timer;
-
-    bool isPlay = false;
-    //QString MusicPath;
 
     QMediaPlayer *m_player;
 

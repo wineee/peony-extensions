@@ -21,9 +21,7 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 
     m_layout->addWidget(m_button);
 
-    m_player = new QMediaPlayer(this);
-    //MusicPath = R"(/home/rewine/音乐/CloudMusic/test.mp3)";
-    //m_player->setMedia(QUrl::fromLocalFile(MusicPath));
+    m_player = new QMediaPlayer(this, QMediaPlayer::LowLatency);
 
     m_progress = new Slider(this);
     m_layout->addWidget(m_progress);
@@ -32,18 +30,20 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_progress->setMaximum(1000);
     m_progress->setValue(0);
 
-    isPlay = 0;
     connect(m_button, &QPushButton::clicked, this, [=]() {
-        isPlay = !isPlay;
-        if (isPlay)
-            m_player->play();
-        else
+        switch (m_player->state()) {
+        case QMediaPlayer::PlayingState:
             m_player->pause();
+            break;
+        default:
+            m_player->play();
+            break;
+        }
     });
 
     timer = new QTimer();
     timer->setInterval(1000 / 4);
-    //timer->start();
+
     connect(timer, &QTimer::timeout, this, [=](){
          m_progress->setValue(1000 * m_player->position() / m_player->duration());
          qDebug() << m_player->position() << " " << m_player->duration() ;
@@ -59,20 +59,17 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
         m_player->setPosition(m_progress->value() * m_player->duration() / 1000);
     });
 
-    m_volume_slider = new Slider(this);
-    //m_volume_slider->setOrientation(Qt::Vertical);
-    //m_volume_slider->setEnabled(false);
-    //m_volume_slider->hide();
-    m_layout->addWidget(m_volume_slider);
+//    m_volume_slider = new Slider(this);
+//    m_layout->addWidget(m_volume_slider);
 
-    m_player->setVolume(50);
-    m_volume_slider->setValue(50);
-    connect(m_volume_slider, &Slider::MySliderClicked, this, [=]() {
-        m_player->setVolume(m_volume_slider->value());
-    });
-    connect(m_volume_slider, &Slider::sliderMoved, this, [=]() {
-        m_player->setVolume(m_volume_slider->value());
-    });
+//    m_player->setVolume(50);
+//    m_volume_slider->setValue(50);
+//    connect(m_volume_slider, &Slider::MySliderClicked, this, [=]() {
+//        m_player->setVolume(m_volume_slider->value());
+//    });
+//    connect(m_volume_slider, &Slider::sliderMoved, this, [=]() {
+//        m_player->setVolume(m_volume_slider->value());
+//    });
 }
 
 void AudioPreviewPage::updateInfo(FileInfo *info) {
@@ -81,9 +78,8 @@ void AudioPreviewPage::updateInfo(FileInfo *info) {
     timer->start();
 }
 
-void AudioPreviewPage::cancel(){
+void AudioPreviewPage::cancel() {
     qDebug() << "AudioPreviewPage::cancel";
     m_player->stop();
-    isPlay = false;
     timer->stop();
 }
