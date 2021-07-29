@@ -1,5 +1,6 @@
 #include "audio-preview-page.h"
 #include <QDebug>
+#include <QMediaPlaylist>
 
 Slider::Slider(QWidget *parent) : QSlider(parent)
 {
@@ -16,9 +17,9 @@ void Slider::mousePressEvent(QMouseEvent *ev) {
 AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     m_button = new QPushButton(this);
+    m_button->setText("停止播放");
     m_layout = new QGridLayout(this);
     setLayout(m_layout);
-
     m_layout->addWidget(m_button);
 
     m_player = new QMediaPlayer(this, QMediaPlayer::LowLatency);
@@ -27,16 +28,20 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_layout->addWidget(m_progress);
 
     m_progress->setMinimum(0);
-    m_progress->setMaximum(1000);
+    connect(m_player, &QMediaPlayer::durationChanged, this, [=]() {
+        m_progress->setMaximum(m_player->duration());
+    });
     m_progress->setValue(0);
 
     connect(m_button, &QPushButton::clicked, this, [=]() {
         switch (m_player->state()) {
         case QMediaPlayer::PlayingState:
             m_player->pause();
+            m_button->setText("继续播放");
             break;
         default:
             m_player->play();
+            m_button->setText("停止播放");
             break;
         }
     });
@@ -45,18 +50,23 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     timer->setInterval(1000 / 4);
 
     connect(timer, &QTimer::timeout, this, [=](){
-         m_progress->setValue(1000 * m_player->position() / m_player->duration());
+         m_progress->setValue(m_player->position());
+         if (m_player->position() == m_player->duration())
+             m_button->setText("继续播放");
          qDebug() << m_player->position() << " " << m_player->duration() ;
     });
+//    connect(m_player, &QMediaPlayer::positionChanged, this, [=]() {
+//        m_progress->setValue(m_player->position());
+//    });
     connect(m_progress, &Slider::sliderMoved, this, [=]() {
         timer->stop();
-        m_player->setPosition(m_progress->value() * m_player->duration() / 1000);
     });
     connect(m_progress, &Slider::sliderReleased, this, [=]() {
+        m_player->setPosition(m_progress->value());
         timer->start();
     });
     connect(m_progress, &Slider::MySliderClicked, this, [=]() {
-        m_player->setPosition(m_progress->value() * m_player->duration() / 1000);
+        m_player->setPosition(m_progress->value());
     });
 
 //    m_volume_slider = new Slider(this);
