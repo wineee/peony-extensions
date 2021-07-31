@@ -13,7 +13,7 @@
 #include <QUrl>
 
 #include "base-preview-page.h"
-//#include "controls/icon-container.h"
+#include "controls/icon-container.h"
 #include <QPushButton>
 
 class OtherPreviewPage : public BasePreviewPage

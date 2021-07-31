@@ -16,7 +16,7 @@ void TextPreviewPage::cancel() {
 }
 
 void TextPreviewPage::updateInfo(FileInfo *info) {
-    QFile file(QUrl(info->uri()).toLocalFile());
+    QFile file(info->filePath());
     qDebug() << "TextPreviewPage::updateInfo:" << info->uri();
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;

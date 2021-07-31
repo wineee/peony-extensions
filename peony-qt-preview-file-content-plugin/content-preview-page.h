@@ -35,6 +35,7 @@
 #include "other-preview-page.h"
 #include "audio-preview-page.h"
 #include "text-preview-page.h"
+#include "pdf-preview-page.h"
 
 using Peony::FileWatcher;
 using Peony::FileInfo;
@@ -64,7 +65,7 @@ private:
 
     QWidget *m_empty_tab_widget;
     BasePreviewPage *m_other_preview_widget;
-    BasePreviewPage *m_preview_widget[2];
+    BasePreviewPage *m_preview_widget[3];
 
     std::shared_ptr<FileInfo> m_info;
     std::shared_ptr<FileWatcher> m_watcher;

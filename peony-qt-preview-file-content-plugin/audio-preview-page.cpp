@@ -33,21 +33,23 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     });
     m_progress->setValue(0);
 
+    timer = new QTimer();
+    timer->setInterval(1000 / 4);
+
     connect(m_button, &QPushButton::clicked, this, [=]() {
         switch (m_player->state()) {
         case QMediaPlayer::PlayingState:
             m_player->pause();
+            timer->stop();
             m_button->setText("继续播放");
             break;
         default:
             m_player->play();
+            timer->start();
             m_button->setText("停止播放");
             break;
         }
     });
-
-    timer = new QTimer();
-    timer->setInterval(1000 / 4);
 
     connect(timer, &QTimer::timeout, this, [=](){
          m_progress->setValue(m_player->position());

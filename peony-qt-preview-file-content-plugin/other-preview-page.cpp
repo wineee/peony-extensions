@@ -38,7 +38,7 @@ OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 
 void OtherPreviewPage::updateInfo(FileInfo *info)
 {
-    qDebug() << "FilePreviewPage::updateInfo";
+    qDebug() << "OtherPreviewPage::updateInfo";
     auto thumbnail = ThumbnailManager::getInstance()->tryGetThumbnail(info->uri());
     if (!thumbnail.isNull()) {
         QUrl url = info->uri();

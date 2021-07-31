@@ -27,9 +27,10 @@ ContentPreviewPage::ContentPreviewPage(QWidget *parent) : QStackedWidget(parent)
 
     m_preview_widget[0] = new AudioPreviewPage(this);
     m_preview_widget[1] = new TextPreviewPage(this);
+    m_preview_widget[2] = new PdfPreviewPage(this);
     addWidget(m_other_preview_widget);
     addWidget(m_empty_tab_widget);
-    for (int cas = 0; cas < 2; ++cas) {
+    for (int cas = 0; cas < 3; ++cas) {
         addWidget(m_preview_widget[cas]);
     }
     setCurrentWidget(m_empty_tab_widget);
@@ -71,19 +72,30 @@ void ContentPreviewPage::startPreview() {
     qDebug() << m_info->fileType();
 
     if (m_support) {
-        if (m_info->fileType().contains("audio")) {
-            auto previewPage = qobject_cast<AudioPreviewPage*>(m_preview_widget[0]);
-            previewPage->updateInfo(m_info.get());
-            setCurrentWidget(previewPage);
-        } else if (m_info->fileType().contains("text")) {
-            auto previewPage = qobject_cast<TextPreviewPage*>(m_preview_widget[1]);
-            previewPage->updateInfo(m_info.get());
-            setCurrentWidget(previewPage);
-        } else {
+        do {
+            if (m_info->fileType().contains("audio")) {
+                auto previewPage = qobject_cast<AudioPreviewPage*>(m_preview_widget[0]);
+                previewPage->updateInfo(m_info.get());
+                setCurrentWidget(previewPage);
+                break;
+            }
+            if (m_info->fileType().contains("text")) {
+                auto previewPage = qobject_cast<TextPreviewPage*>(m_preview_widget[1]);
+                previewPage->updateInfo(m_info.get());
+                setCurrentWidget(previewPage);
+                break;
+            }
+            if (m_current_uri.contains(".pdf")) {
+                auto previewPage = qobject_cast<PdfPreviewPage*>(m_preview_widget[2]);
+                previewPage->updateInfo(m_info.get());
+                setCurrentWidget(previewPage);
+                break;
+            }
             auto previewPage = qobject_cast<OtherPreviewPage*>(m_other_preview_widget);
             previewPage->updateInfo(m_info.get());
             setCurrentWidget(previewPage);
-        }
+            break;
+        } while (1);
     } else {
         QLabel *label = qobject_cast<QLabel*>(m_empty_tab_widget);
         label->setText(tr("Cann not preview this file."));
