@@ -1,6 +1,6 @@
-QT += core gui widgets multimedia webengine pdf pdfwidgets# multimediawidgets network webengine webenginewidgets webkit webkitwidgets
+QT += core gui widgets multimedia multimediawidgets webengine pdf pdfwidgets#  network  webenginewidgets webkit webkitwidgets
 
-TARGET = peony-qt-preview-file-content-plugin
+TARGET = peony-qt-preview-file-content-plugin videographicsitem
 TEMPLATE = lib
 
 DEFINES += PEONYQTPREVIEWFILECONTENTPLUGIN_LIBRARY
@@ -23,7 +23,7 @@ SOURCES += \
   #  doc-preview-page.cpp \
   #  image-preview-page.cpp \
     pdf-preview-page.cpp \
-  #  video-preview-page.cpp \
+    video-preview-page.cpp \
     other-preview-page.cpp \
     text-preview-page.cpp
 
@@ -36,7 +36,7 @@ HEADERS += \
     other-preview-page.h \
     pdf-preview-page.h \
     peony-qt-preview-file-content-plugin_global.h \
-  #  video-preview-page.h \
+    video-preview-page.h \
     content-preview-page.h \
     text-preview-page.h
 

@@ -28,9 +28,10 @@ ContentPreviewPage::ContentPreviewPage(QWidget *parent) : QStackedWidget(parent)
     m_preview_widget[0] = new AudioPreviewPage(this);
     m_preview_widget[1] = new TextPreviewPage(this);
     m_preview_widget[2] = new PdfPreviewPage(this);
+    m_preview_widget[3] = new VideoPreviewPage(this);
     addWidget(m_other_preview_widget);
     addWidget(m_empty_tab_widget);
-    for (int cas = 0; cas < 3; ++cas) {
+    for (int cas = 0; cas < 4; ++cas) {
         addWidget(m_preview_widget[cas]);
     }
     setCurrentWidget(m_empty_tab_widget);
@@ -87,6 +88,12 @@ void ContentPreviewPage::startPreview() {
             }
             if (m_current_uri.contains(".pdf")) {
                 auto previewPage = qobject_cast<PdfPreviewPage*>(m_preview_widget[2]);
+                previewPage->updateInfo(m_info.get());
+                setCurrentWidget(previewPage);
+                break;
+            }
+            if (m_current_uri.contains(".mp4")) {
+                auto previewPage = qobject_cast<VideoPreviewPage*>(m_preview_widget[3]);
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);
                 break;

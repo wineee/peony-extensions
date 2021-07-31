@@ -8,6 +8,8 @@ PdfPreviewPage::PdfPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 
     m_pdf_view = new QPdfView(this);
     m_pdf_view->setDocument(m_document);
+    //m_pdf_view->setZoomMode(QPdfView::FitToWidth);
+    m_pdf_view->setPageMode(QPdfView::MultiPage);
 
     m_layout = new QVBoxLayout(this);
     setLayout(m_layout);
