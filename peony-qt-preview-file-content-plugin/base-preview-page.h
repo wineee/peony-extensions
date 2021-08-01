@@ -4,6 +4,8 @@
 #include <QFrame>
 #include <QObject>
 #include <QWidget>
+#include <QLayout>
+
 #include "file-info.h"
 #include "file-info-job.h"
 
