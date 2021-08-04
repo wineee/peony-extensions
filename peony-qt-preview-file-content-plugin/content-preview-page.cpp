@@ -37,6 +37,7 @@ ContentPreviewPage::ContentPreviewPage(QWidget *parent) : QStackedWidget(parent)
         addWidget(m_preview_widget[cas]);
     }
     setCurrentWidget(m_empty_tab_widget);
+    m_preview_cas = -1;
 }
 
 ContentPreviewPage::~ContentPreviewPage()
@@ -80,38 +81,45 @@ void ContentPreviewPage::startPreview() {
                 auto previewPage = qobject_cast<AudioPreviewPage*>(m_preview_widget[0]);
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);
+                m_preview_cas = 0;
                 break;
             }
             if (m_info->fileType().contains("text")) {
                 auto previewPage = qobject_cast<TextPreviewPage*>(m_preview_widget[1]);
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);
+                m_preview_cas = 1;
                 break;
             }
             if (m_current_uri.contains(".pdf")) {
                 auto previewPage = qobject_cast<PdfPreviewPage*>(m_preview_widget[2]);
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);
+                m_preview_cas = 2;
                 break;
             }
             if (m_current_uri.contains(".mp4")) {
                 auto previewPage = qobject_cast<VideoPreviewPage*>(m_preview_widget[3]);
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);
+                m_preview_cas = 3;
                 break;
             }
             if (m_current_uri.contains(".png") || m_current_uri.contains(".jpg")) {
                 auto previewPage = qobject_cast<ImagePreviewPage*>(m_preview_widget[4]);
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);
+                m_preview_cas = 4;
                 break;
             }
             auto previewPage = qobject_cast<OtherPreviewPage*>(m_other_preview_widget);
             previewPage->updateInfo(m_info.get());
             setCurrentWidget(previewPage);
+            m_preview_cas = -1;
             break;
         } while (1);
     } else {
+        m_preview_cas = -1;
         QLabel *label = qobject_cast<QLabel*>(m_empty_tab_widget);
         label->setText(tr("Cann not preview this file."));
     }
@@ -119,8 +127,8 @@ void ContentPreviewPage::startPreview() {
 
 void ContentPreviewPage::cancel() {
     qDebug() << "in cancel ";
-
-    m_preview_widget[0]->cancel();
+    if (m_preview_cas > 0)
+        m_preview_widget[m_preview_cas]->cancel();
 
     setCurrentWidget(m_empty_tab_widget);
     QLabel *label = qobject_cast<QLabel*>(m_empty_tab_widget);

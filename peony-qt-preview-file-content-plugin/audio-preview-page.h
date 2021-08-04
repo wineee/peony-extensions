@@ -41,6 +41,7 @@ private:
 
     QMediaPlayer *m_player;
 
+    // BasePreviewPage interface
 public Q_SLOTS:
     void updateInfo(FileInfo *info) override;
 public:

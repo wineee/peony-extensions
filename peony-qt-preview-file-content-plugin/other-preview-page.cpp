@@ -61,6 +61,7 @@ void OtherPreviewPage::updateInfo(FileInfo *info)
 
 void OtherPreviewPage::resizeIcon(QSize size)
 {
+    Q_UNUSED(size);
     //m_icon->setIconSize(size);
 }
 

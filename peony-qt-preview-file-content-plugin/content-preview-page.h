@@ -68,6 +68,7 @@ private:
     QWidget *m_empty_tab_widget;
     BasePreviewPage *m_other_preview_widget;
     BasePreviewPage *m_preview_widget[5];
+    int m_preview_cas;
 
     std::shared_ptr<FileInfo> m_info;
     std::shared_ptr<FileWatcher> m_watcher;
