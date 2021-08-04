@@ -26,9 +26,6 @@ private:
     QSlider *m_position_slider = nullptr;
     QLayout *m_layout;
 
-  //  QVideoWidget *m_video_widget;
-
-    // BasePreviewPage interface
 public:
     void cancel() override;
 

@@ -4,16 +4,16 @@
 
 ImagePreviewPage::ImagePreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
-    m_image_label = new QLabel(this);
-    m_image_label->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-    m_image_label->setScaledContents(true);
+//    m_image_label = new QLabel(this);
+//    m_image_label->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+//    m_image_label->setScaledContents(true);
 
-    m_scroll_area = new QScrollArea(this);
-    m_scroll_area->setWidget(m_image_label);
-    m_scroll_area->setWidgetResizable(true);
+//    m_scroll_area = new QScrollArea(this);
+//    m_scroll_area->setWidget(m_image_label);
+//    m_scroll_area->setWidgetResizable(true);
 
     m_image_scene  = new QGraphicsScene;
-    m_pixmap_item = new QGraphicsPixmapItem;
+    m_image_item = new QGraphicsPixmapItem;
     m_image_view = new QGraphicsView;
     m_image_view->setScene(m_image_scene);
 
@@ -30,13 +30,13 @@ void ImagePreviewPage::updateInfo(Peony::FileInfo *info) {
     //m_image_label->setPixmap(QPixmap::fromImage(newImage));
 
     QPixmap newPixmap(info->filePath());
-    m_pixmap_item = m_image_scene->addPixmap(newPixmap);
+    m_image_item = m_image_scene->addPixmap(newPixmap);
     m_image_scene->setSceneRect(QRectF(newPixmap.rect()));
 
     m_image_view->resetTransform();
 
-    int height = m_pixmap_item->pixmap().height();
-    int width = m_pixmap_item->pixmap().width();
+    int height = m_image_item->pixmap().height();
+    int width = m_image_item->pixmap().width();
     int max_height = m_image_view->height();
     int max_width = m_image_view->width();
     int pic_size = qMax(width, height);

@@ -1,6 +1,7 @@
 #include "audio-preview-page.h"
 #include <QDebug>
 #include <QMediaPlaylist>
+#include <QStyle>
 
 Slider::Slider(QWidget *parent) : QSlider(parent)
 {
@@ -17,7 +18,7 @@ void Slider::mousePressEvent(QMouseEvent *ev) {
 AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     m_button = new QPushButton(this);
-    m_button->setText("停止播放");
+    m_button->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
     m_layout = new QGridLayout(this);
     setLayout(m_layout);
     m_layout->addWidget(m_button);
@@ -41,20 +42,29 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
         case QMediaPlayer::PlayingState:
             m_player->pause();
             timer->stop();
-            m_button->setText("继续播放");
             break;
         default:
             m_player->play();
             timer->start();
-            m_button->setText("停止播放");
+            break;
+        }
+    });
+
+    connect(m_player, &QMediaPlayer::stateChanged,
+            this, [=](QMediaPlayer::State state)
+    {
+        switch(state) {
+        case QMediaPlayer::PlayingState:
+            m_button->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+            break;
+        default:
+            m_button->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
             break;
         }
     });
 
     connect(timer, &QTimer::timeout, this, [=](){
          m_progress->setValue(m_player->position());
-         if (m_player->position() == m_player->duration())
-             m_button->setText("继续播放");
          qDebug() << m_player->position() << " " << m_player->duration() ;
     });
 //    connect(m_player, &QMediaPlayer::positionChanged, this, [=]() {
