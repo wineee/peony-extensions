@@ -7,6 +7,8 @@
 #include <QImage>
 #include <QLabel>
 #include <QScrollArea>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsView>
 
 class ImagePreviewPage : public BasePreviewPage
 {
@@ -20,6 +22,10 @@ private:
     QLabel *m_image_label;
     QScrollArea *m_scroll_area;
     QLayout *m_layout;
+
+    QGraphicsScene  *m_image_scene;
+    QGraphicsView *m_image_view;
+    QGraphicsPixmapItem* m_pixmap_item;
 
     // BasePreviewPage interface
 public:

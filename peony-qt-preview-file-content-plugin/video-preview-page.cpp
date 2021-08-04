@@ -7,7 +7,7 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_player = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
     m_video_item = new QGraphicsVideoItem;
 
-    QGraphicsScene *scene = new QGraphicsScene(this);
+    QGraphicsScene *scene = new QGraphicsScene;
     QGraphicsView *graphicsView = new QGraphicsView(scene);
 
     scene->addItem(m_video_item);

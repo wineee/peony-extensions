@@ -56,6 +56,7 @@ void OtherPreviewPage::updateInfo(FileInfo *info)
 
     m_time_access_label->setText(access.toString(Qt::SystemLocaleShortDate));
     m_time_modified_label->setText(modify.toString(Qt::SystemLocaleShortDate));
+    qDebug() << "OtherPreviewPage::updateInfo ok!";
 }
 
 void OtherPreviewPage::resizeIcon(QSize size)
