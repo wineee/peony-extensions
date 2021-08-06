@@ -4,10 +4,12 @@
 #include <QDebug>
 
 TextPreviewPage::TextPreviewPage(QWidget *parent) : BasePreviewPage(parent)
-{
+{    
+    m_text_edit = new QPlainTextEdit(this);
+    m_text_edit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+
     m_layout = new QHBoxLayout(this);
     setLayout(m_layout);
-    m_text_edit = new QPlainTextEdit(this);
     m_layout->addWidget(m_text_edit);
 }
 

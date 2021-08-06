@@ -30,10 +30,11 @@ ContentPreviewPage::ContentPreviewPage(QWidget *parent) : QStackedWidget(parent)
     m_preview_widget[2] = new PdfPreviewPage(this);
     m_preview_widget[3] = new VideoPreviewPage(this);
     m_preview_widget[4] = new ImagePreviewPage(this);
+    m_preview_widget[5] = new DocPreviewPage(this);
 
     addWidget(m_other_preview_widget);
     addWidget(m_empty_tab_widget);
-    for (int cas = 0; cas < 5; ++cas) {
+    for (int cas = 0; cas < 6; ++cas) {
         addWidget(m_preview_widget[cas]);
     }
     setCurrentWidget(m_empty_tab_widget);
@@ -110,6 +111,13 @@ void ContentPreviewPage::startPreview() {
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);
                 m_preview_cas = 4;
+                break;
+            }
+            if (m_current_uri.contains(".doc")) {
+                auto previewPage = qobject_cast<DocPreviewPage*>(m_preview_widget[5]);
+                previewPage->updateInfo(m_info.get());
+                setCurrentWidget(previewPage);
+                m_preview_cas = 5;
                 break;
             }
             auto previewPage = qobject_cast<OtherPreviewPage*>(m_other_preview_widget);
