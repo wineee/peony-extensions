@@ -18,6 +18,7 @@ PKGCONFIG += peony
 SOURCES += \
     audio-preview-page.cpp \
     base-preview-page.cpp \
+    components/slider.cpp \
     content-preview-page-factory.cpp \
     content-preview-page.cpp \
     doc-preview-page.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
 HEADERS += \
     audio-preview-page.h \
     base-preview-page.h \
+    components/slider.h \
     content-preview-page-factory.h \
     doc-preview-page.h \
     image-preview-page.h \

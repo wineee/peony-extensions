@@ -1,16 +1,16 @@
 #ifndef VIDEOPREVIEWPAGE_H
 #define VIDEOPREVIEWPAGE_H
 
-#include "base-preview-page.h"
 #include <QMediaPlayer>
 #include <QGraphicsVideoItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QPushButton>
-#include <QSlider>
 #include <QVBoxLayout>
+#include <QTimer>
 
-#include <QVideoWidget>
+#include "base-preview-page.h"
+#include "components/slider.h"
 
 class VideoPreviewPage : public BasePreviewPage
 {
@@ -20,11 +20,12 @@ public:
     ~VideoPreviewPage() = default;
 
 private:
-    QMediaPlayer *m_player = nullptr;
-    QGraphicsVideoItem *m_video_item = nullptr;
-    QPushButton *m_play_button = nullptr;
-    QSlider *m_position_slider = nullptr;
+    QMediaPlayer *m_player;
+    QGraphicsVideoItem *m_video_item;
+    QPushButton *m_play_button;
+    Slider *m_position_slider;
     QLayout *m_layout;
+    QTimer *timer;
 
 public:
     void cancel() override;

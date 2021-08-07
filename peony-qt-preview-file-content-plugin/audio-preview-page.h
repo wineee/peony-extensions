@@ -3,27 +3,12 @@
 
 #include <QWidget>
 #include <QMediaPlayer>
-#include <QDir>
 #include <QPushButton>
 #include <QLayout>
 #include <QTimer>
-#include <QSlider>
-#include <QMouseEvent>
 
 #include "base-preview-page.h"
-
-class Slider : public QSlider
-{
-    Q_OBJECT
-public:
-    explicit Slider(QWidget *parent = nullptr);
-    ~Slider() = default;
-protected:
-    void mousePressEvent(QMouseEvent *ev);
-Q_SIGNALS:
-    void MySliderClicked();
-};
-
+#include "components/slider.h"
 
 class AudioPreviewPage : public BasePreviewPage
 {

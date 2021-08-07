@@ -3,18 +3,6 @@
 #include <QMediaPlaylist>
 #include <QStyle>
 
-Slider::Slider(QWidget *parent) : QSlider(parent)
-{
-    setOrientation(Qt::Horizontal);
-}
-
-void Slider::mousePressEvent(QMouseEvent *ev) {
-    QSlider::mousePressEvent(ev);
-    double pos = ev->pos().x() / (double)width();
-    setValue(pos * (maximum() - minimum()) + minimum());
-    Q_EMIT MySliderClicked();
-}
-
 AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     m_button = new QPushButton(this);
@@ -77,7 +65,7 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
         m_player->setPosition(m_progress->value());
         timer->start();
     });
-    connect(m_progress, &Slider::MySliderClicked, this, [=]() {
+    connect(m_progress, &Slider::SliderClicked, this, [=]() {
         m_player->setPosition(m_progress->value());
     });
 

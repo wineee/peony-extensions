@@ -135,8 +135,8 @@ void ContentPreviewPage::startPreview() {
 
 void ContentPreviewPage::cancel() {
     qDebug() << "in cancel ";
-    if (m_preview_cas > 0)
-        m_preview_widget[m_preview_cas]->cancel();
+    for (int i = 0; i < 6; i++)
+        m_preview_widget[i]->cancel();
 
     setCurrentWidget(m_empty_tab_widget);
     QLabel *label = qobject_cast<QLabel*>(m_empty_tab_widget);
