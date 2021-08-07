@@ -19,7 +19,6 @@ public:
 private:
     QPushButton *m_button;
     QPushButton *volume_button;
-    QLayout *m_layout;
     Slider *m_progress;
 //    Slider *m_volume_slider;
     QTimer *timer;

@@ -22,7 +22,6 @@ private:
     QImage image;
 //    QLabel *m_image_label;
 //    QScrollArea *m_scroll_area;
-    QLayout *m_layout;
     QGraphicsScene  *m_image_scene;
     QGraphicsView *m_image_view;
     QGraphicsPixmapItem* m_image_item;

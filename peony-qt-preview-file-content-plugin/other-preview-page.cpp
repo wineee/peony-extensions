@@ -2,7 +2,7 @@
 
 #include <QDebug>
 #include <QDateTime>
-#include <QImageReader>
+#include <QGridLayout>
 
 #include "thumbnail-manager.h"
 
@@ -33,7 +33,7 @@ OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 
     QWidget *form = new QWidget(this);
     form->setLayout(m_form);
-    m_layout->addWidget(form, 1, 0);
+    m_layout->addWidget(form);
 }
 
 void OtherPreviewPage::updateInfo(FileInfo *info)

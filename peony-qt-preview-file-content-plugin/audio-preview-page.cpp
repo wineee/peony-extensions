@@ -7,15 +7,10 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     m_button = new QPushButton(this);
     m_button->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
-    m_layout = new QGridLayout(this);
-    setLayout(m_layout);
-    m_layout->addWidget(m_button);
 
     m_player = new QMediaPlayer(this, QMediaPlayer::LowLatency);
 
     m_progress = new Slider(this);
-    m_layout->addWidget(m_progress);
-
     m_progress->setMinimum(0);
     connect(m_player, &QMediaPlayer::durationChanged, this, [=]() {
         m_progress->setMaximum(m_player->duration());
@@ -80,6 +75,10 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 //    connect(m_volume_slider, &Slider::sliderMoved, this, [=]() {
 //        m_player->setVolume(m_volume_slider->value());
 //    });
+    m_layout = new QVBoxLayout(this);
+    setLayout(m_layout);
+    m_layout->addWidget(m_button);
+    m_layout->addWidget(m_progress);
 }
 
 void AudioPreviewPage::updateInfo(FileInfo *info) {

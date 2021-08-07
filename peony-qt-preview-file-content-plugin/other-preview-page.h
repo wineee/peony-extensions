@@ -28,7 +28,6 @@ public Q_SLOTS:
     void resizeIcon(QSize size);
 
 private:
-    QGridLayout *m_layout;
     QPushButton *m_icon;
     QFormLayout *m_form;
     QLabel *m_display_name_label;

@@ -24,7 +24,6 @@ private:
     QGraphicsVideoItem *m_video_item;
     QPushButton *m_play_button;
     Slider *m_position_slider;
-    QLayout *m_layout;
     QTimer *timer;
 
 public:

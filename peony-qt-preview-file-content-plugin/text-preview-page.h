@@ -18,7 +18,6 @@ public:
 
 private:
     QPlainTextEdit *m_text_edit;
-    QLayout *m_layout;
 
 public Q_SLOTS:
     void updateInfo(FileInfo *info) override;
