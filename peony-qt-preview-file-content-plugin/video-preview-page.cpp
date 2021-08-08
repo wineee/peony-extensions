@@ -77,6 +77,7 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     // set layout
     m_layout = new QVBoxLayout(this);
     m_layout->addWidget(graphicsView);
+    graphicsView->adjustSize();
     m_layout->addWidget(m_position_slider);
     m_layout->addWidget(m_play_button);
     setLayout(m_layout);

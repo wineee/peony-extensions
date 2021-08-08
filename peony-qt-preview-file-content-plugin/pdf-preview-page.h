@@ -26,7 +26,6 @@ private:
     QPdfDocument *m_document;
     QPdfBookmarkModel *m_bookmarkModel;
     QPdfView *m_pdf_view;
-    QLayout *m_layout;
 
     // BasePreviewPage interface
 public:

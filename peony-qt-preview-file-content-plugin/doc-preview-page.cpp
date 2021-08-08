@@ -4,7 +4,7 @@
 DocPreviewPage::DocPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     m_web_view = new QWebEngineView(this);
-    m_web_view->setUrl(QUrl("http://127.0.0.1"));
+    m_web_view->setUrl(QUrl("qrc:/index.html"));
 
     m_layout = new QVBoxLayout(this);
     setLayout(m_layout);

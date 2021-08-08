@@ -14,6 +14,7 @@ public:
 
 private:
     QWebEngineView *m_web_view;
+
     // BasePreviewPage interface
 public:
     void cancel() override;

@@ -22,7 +22,7 @@ public:
     virtual void cancel() = 0;
 
 protected:
-    QLayout *m_layout;
+    QLayout *m_layout = nullptr;
 
 public Q_SLOTS:
     virtual void updateInfo(FileInfo *info) = 0;

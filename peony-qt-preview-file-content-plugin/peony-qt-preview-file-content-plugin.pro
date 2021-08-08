@@ -45,3 +45,6 @@ HEADERS += \
 target.path = $$[QT_INSTALL_LIBS]/peony-extensions
 INSTALLS += target
 
+RESOURCES += \
+    resources/resources.qrc
+
