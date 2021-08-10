@@ -4,6 +4,7 @@
 #include "base-preview-page.h"
 #include <QWebChannel>
 #include <QWebEngineView>
+#include <QWebEnginePage>
 #include <QProcess>
 
 class DocPreviewPage : public BasePreviewPage
@@ -14,7 +15,9 @@ public:
     ~DocPreviewPage() = default;
 
 private:
-    QWebEngineView *m_web_view = nullptr;
+    QWebEngineView *m_web_view;
+    QWebChannel *m_web_channel;
+    QWebEnginePage *m_web_page;
     qint64 m_proc_pid = -1;
 
     // BasePreviewPage interface

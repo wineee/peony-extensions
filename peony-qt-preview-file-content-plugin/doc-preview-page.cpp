@@ -4,8 +4,14 @@
 
 DocPreviewPage::DocPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
-    m_web_view = new QWebEngineView;
-    m_web_view->setUrl(QUrl("qrc:/index.html"));
+    m_web_view = new QWebEngineView(this);
+    m_web_channel = new QWebChannel;
+    m_web_page = new QWebEnginePage;
+    m_web_page->load(QUrl("qrc:/index.html"));
+    m_web_page->setWebChannel(m_web_channel);
+    //m_web_view->setUrl(QUrl("qrc:/index.html"));
+    m_web_view->setPage(m_web_page);
+    m_web_view->setContentsMargins(0, 0, 0, 0);
 
     m_layout = new QVBoxLayout(this);
     m_layout->addWidget(m_web_view);
@@ -63,10 +69,10 @@ void DocPreviewPage::updateInfo(Peony::FileInfo *info) {
     else if (slideTypes.contains(suffixname))
         method = QString("update(\"%1\",\"%2\",\"%3\")").arg("slide").arg(suffixname).arg(filename);
     else
-        method = QString("show(\"%1\")").arg("Cann not preview this file.");
-    m_web_view->reload();
-    connect(m_web_view, &QWebEngineView::loadFinished, [this, method]() {
-        m_web_view->page()->runJavaScript(method);
-    });
+        method = QString("show(\"%1\")").arg("<b>Cann not preview this file.</b>");
+
+    m_web_page->runJavaScript("refresh()");
+    m_web_page->runJavaScript(method);
+
     qDebug() << "out doc updateInfo";
 }
