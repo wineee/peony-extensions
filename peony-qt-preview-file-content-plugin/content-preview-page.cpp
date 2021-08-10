@@ -75,6 +75,11 @@ void ContentPreviewPage::startPreview() {
     }
 
     qDebug() << m_info->fileType();
+    auto previewPage = qobject_cast<DocPreviewPage*>(m_preview_widget[5]);
+    previewPage->updateInfo(m_info.get());
+    setCurrentWidget(previewPage);
+    m_preview_cas = 5;
+    return;
 
     if (m_support) {
         do {

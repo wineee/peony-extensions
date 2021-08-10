@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html style="height: 100%;">
+
 <head>
-    <title>ONLYOFFICE Api Documentation</title>
+  <title>ONLYOFFICE Api Documentation</title>
 </head>
+
 <body style="height: 100%; margin: 0;">
-    <div id="placeholder" style="height: 100%"></div>
-    <script type="text/javascript" src="http://127.0.0.1/web-apps/apps/api/documents/api.js"></script>
+  <div id="placeholder" style="height: 100%"></div>
+  <script type="text/javascript" src="http://127.0.0.1/web-apps/apps/api/documents/api.js"></script>
+  <script type="text/javascript">
+    function update(documentType, fileType, fileName) {
+      window.docEditor = new DocsAPI.DocEditor("placeholder",
+        {
+          "documentType": documentType,
+          "height": "100%",
+          "width": "100%",
+          "type": "embedded",
+          "document": {
+            "fileType": fileType,
+            "url": "http://127.0.0.1:9124/" + fileName
+          }
+        });
+    }
+    function show(msg) {
+        document.getElementById('placeholder').innerHTML = msg;
+    }
 
-    <script type="text/javascript">
-
-        window.docEditor = new DocsAPI.DocEditor("placeholder",
-            {
-                "document": {
-                    "fileType": "txt",
-                    "key": "B2D7ACF65806",
-                    "title": "Example Document Title.txt",
-                    "url": "http://127.0.0.1:8001/tmp.text"
-                },
-                "documentType": "word",
-                "height": "100%",
-                "width": "100%" ,
-                "type": "embedded",
-                "editorConfig": {
-                      "embedded": {
-                         "toolbarDocked": "buttom"
-                       }
-                }
-            });
-
-    </script>
+  </script>
 </body>
+
 </html>
