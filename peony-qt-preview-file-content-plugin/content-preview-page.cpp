@@ -75,11 +75,6 @@ void ContentPreviewPage::startPreview() {
     }
 
     qDebug() << m_info->fileType();
-    auto previewPage = qobject_cast<DocPreviewPage*>(m_preview_widget[5]);
-    previewPage->updateInfo(m_info.get());
-    setCurrentWidget(previewPage);
-    m_preview_cas = 5;
-    return;
 
     if (m_support) {
         do {
@@ -111,7 +106,7 @@ void ContentPreviewPage::startPreview() {
                 m_preview_cas = 3;
                 break;
             }
-            if (m_current_uri.contains(".png") || m_current_uri.contains(".jpg")) {
+            if (m_current_uri.contains(".png") || m_current_uri.contains(".jpg") || m_current_uri.contains(".jpeg")) {
                 auto previewPage = qobject_cast<ImagePreviewPage*>(m_preview_widget[4]);
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);

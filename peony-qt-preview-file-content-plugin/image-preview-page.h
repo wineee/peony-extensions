@@ -1,7 +1,6 @@
 #ifndef IMAGEPREVIEWPAGE_H
 #define IMAGEPREVIEWPAGE_H
 
-#include <QObject>
 #include "base-preview-page.h"
 
 #include <QImage>
@@ -20,15 +19,15 @@ public:
 
 private:
     QImage image;
-//    QLabel *m_image_label;
-//    QScrollArea *m_scroll_area;
     QGraphicsScene  *m_image_scene;
     QGraphicsView *m_image_view;
-    QGraphicsPixmapItem* m_image_item;
+    QGraphicsPixmapItem *m_image_item;
 
-    QPushButton *m_horizontal;
+    QPushButton *m_horizontal_flip_button;
+    QPushButton *m_vertical_flip_button;
 
-    void doHorizontal();
+    void doHorizontalFlip();
+    void doVerticalFlip();
 
     // BasePreviewPage interface
 public:
