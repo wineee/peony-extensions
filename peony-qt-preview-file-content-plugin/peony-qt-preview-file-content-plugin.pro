@@ -6,7 +6,6 @@ TEMPLATE = lib
 DEFINES += PEONYQTPREVIEWFILECONTENTPLUGIN_LIBRARY
 DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += PEONYADMIN_LIBRARY
-
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 include(../common.pri)
@@ -18,6 +17,7 @@ PKGCONFIG += peony
 SOURCES += \
     audio-preview-page.cpp \
     base-preview-page.cpp \
+    components/icon-button.cpp \
     components/slider.cpp \
     content-preview-page-factory.cpp \
     content-preview-page.cpp \
@@ -31,6 +31,7 @@ SOURCES += \
 HEADERS += \
     audio-preview-page.h \
     base-preview-page.h \
+    components/icon-button.h \
     components/slider.h \
     content-preview-page-factory.h \
     doc-preview-page.h \

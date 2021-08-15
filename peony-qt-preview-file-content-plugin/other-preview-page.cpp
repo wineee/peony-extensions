@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QGridLayout>
+#include <QPaintEvent>
 
 #include "thumbnail-manager.h"
 
@@ -13,7 +14,7 @@ OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     qDebug() << "init OtherPreviewPage";
     m_layout = new QGridLayout(this);
     setLayout(m_layout);
-    m_icon = new QPushButton(this);
+    m_icon = new IconButton(this);
     m_icon->setIconSize(QSize(96, 96));
     m_layout->addWidget(m_icon);
     m_form = new QFormLayout(this);
@@ -46,7 +47,6 @@ void OtherPreviewPage::updateInfo(FileInfo *info)
     }
     auto icon = QIcon::fromTheme(info->iconName(), QIcon::fromTheme("text-x-generic"));
     m_icon->setIcon(thumbnail.isNull() ? icon : thumbnail);
-    QIcon tmp = QIcon::fromTheme("text-x-generic");
     m_display_name_label->setText(info->displayName());
     m_type_label->setText(info->fileType());
 
@@ -59,12 +59,14 @@ void OtherPreviewPage::updateInfo(FileInfo *info)
     qDebug() << "OtherPreviewPage::updateInfo ok!";
 }
 
-void OtherPreviewPage::resizeIcon(QSize size)
-{
-    Q_UNUSED(size);
-    //m_icon->setIconSize(size);
-}
-
 void OtherPreviewPage::cancel() {
 
 }
+
+void OtherPreviewPage::resizeEvent(QResizeEvent* event) {
+    //auto e = static_cast<QResizeEvent*>(ev);
+    int width = event->size().width() - 50;
+    width = qMax(width, 96);
+    width = qMin(width, 256);
+    m_icon->setIconSize(QSize(width, width * 2/3));
+};

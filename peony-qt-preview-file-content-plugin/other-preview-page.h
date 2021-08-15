@@ -7,14 +7,14 @@
 #include <QFormLayout>
 #include <QIcon>
 #include <QWidget>
+#include <QResizeEvent>
 
 #include <QFile>
 #include <QFileInfo>
 #include <QUrl>
 
 #include "base-preview-page.h"
-#include "controls/icon-container.h"
-#include <QPushButton>
+#include "components/icon-button.h"
 
 class OtherPreviewPage : public BasePreviewPage
 {
@@ -23,20 +23,24 @@ public:
     explicit OtherPreviewPage(QWidget *parent = nullptr);
     ~OtherPreviewPage() = default;
 
-public Q_SLOTS:
-    void updateInfo(FileInfo *info) override;
-    void resizeIcon(QSize size);
-
 private:
-    QPushButton *m_icon;
+    IconButton *m_icon;
     QFormLayout *m_form;
     QLabel *m_display_name_label;
     QLabel *m_type_label;
     QLabel *m_time_modified_label;
     QLabel *m_time_access_label;
 
+    // BasePreviewPage interface
 public:
     void cancel() override;
+
+public Q_SLOTS:
+    void updateInfo(FileInfo *info) override;
+
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent* size) override;
 };
 
 #endif // OTHERPREVIEWPAGE_H
