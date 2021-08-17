@@ -19,13 +19,14 @@ DocPreviewPage::DocPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 }
 
 void DocPreviewPage::cancel() {
-    qDebug() << "DocPreviewPage::cancel: new";
+    qDebug() << "DocPreviewPage::cancel: ";
     // qDebug() << m_proc->processId();
     if (m_proc_pid > 0) {
         QProcess::execute(QLatin1String("kill"), QStringList() << QString::number(m_proc_pid));
         // QProcess::execute(QLatin1String("killall"), QStringList()<<"python3");
         m_proc_pid = -1;
     }
+    m_web_page->runJavaScript("refresh()");
 }
 
 void DocPreviewPage::updateInfo(Peony::FileInfo *info) {
@@ -71,7 +72,6 @@ void DocPreviewPage::updateInfo(Peony::FileInfo *info) {
     else
         method = QString("show(\"%1\")").arg("<b>Cann not preview this file.</b>");
 
-    m_web_page->runJavaScript("refresh()");
     m_web_page->runJavaScript(method);
 
     qDebug() << "out doc updateInfo";

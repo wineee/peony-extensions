@@ -143,20 +143,6 @@ void ContentPreviewPage::cancel() {
     qDebug() << "out cancel";
 }
 
-bool ContentPreviewPage::eventFilter(QObject *obj, QEvent *ev) {
-//    if (obj == m_other_preview_widget) {
-//        if (ev->type() == QEvent::Resize) {
-//            auto e = static_cast<QResizeEvent*>(ev);
-//            auto page = qobject_cast<OtherPreviewPage*>(m_other_preview_widget);
-//            int width = e->size().width() - 50;
-//            width = qMax(width, 96);
-//            width = qMin(width, 256);
-//            page->resizeIcon(QSize(width, width * 2/3));
-//        }
-//    }
-    return QWidget::eventFilter(obj, ev);
-}
-
 void ContentPreviewPage::paintEvent(QPaintEvent *e) {
     QPainter p(this);
     p.setCompositionMode(QPainter::CompositionMode_SourceIn);

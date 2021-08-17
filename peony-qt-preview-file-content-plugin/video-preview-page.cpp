@@ -1,16 +1,15 @@
 #include "video-preview-page.h"
 #include <QStyle>
-#include <QVideoWidget>
+#include <QSpacerItem>
 
 VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     m_player = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
     m_video_item = new QGraphicsVideoItem;
+    m_video_scene = new QGraphicsScene;
+    m_video_view = new QGraphicsView(m_video_scene);
 
-    QGraphicsScene *scene = new QGraphicsScene;
-    QGraphicsView *graphicsView = new QGraphicsView(scene);
-
-    scene->addItem(m_video_item);
+    m_video_scene->addItem(m_video_item);
     m_player->setVideoOutput(m_video_item);
 
     m_play_button = new QPushButton(this);
@@ -20,7 +19,7 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     timer->setInterval(1000 / 4);
     connect(timer, &QTimer::timeout, this, [=](){
          m_position_slider->setValue(m_player->position());
-         qDebug() << m_player->position() << " " << m_player->duration() ;
+         //qDebug() << m_player->position() << " " << m_player->duration() ;
     });
 
     connect(m_play_button, &QPushButton::clicked, this, [=]() {
@@ -51,16 +50,14 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 
     // position slider
     m_position_slider = new Slider(this);
-    m_position_slider->setRange(0, 0);
+    connect(m_player, &QMediaPlayer::durationChanged, this, [=](qint64 duration)
+    {
+        m_position_slider->setRange(0, duration);
+    });
 
     connect(m_position_slider, &QSlider::sliderMoved,
             this, [=] (int position) {
         m_player->setPosition(position);
-    });
-
-    connect(m_player, &QMediaPlayer::durationChanged, this, [=](qint64 duration)
-    {
-        m_position_slider->setRange(0, duration);
     });
 
     connect(m_position_slider, &Slider::sliderMoved, this, [=]() {
@@ -75,19 +72,46 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     });
 
     // set layout
-    m_layout = new QVBoxLayout(this);
-    m_layout->addWidget(graphicsView);
-    graphicsView->adjustSize();
-    m_layout->addWidget(m_position_slider);
-    m_layout->addWidget(m_play_button);
-    setLayout(m_layout);
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->addWidget(m_video_view, 30);
+    //m_video_view->setSizePolicy(QSizePolicy::Expanding ,QSizePolicy::Expanding);
+    //m_video_view->adjustSize();
+    layout->addStretch(1);
+    layout->addWidget(m_position_slider);
+    //layout->addSpacing(20);
+    layout->addStretch(1);
+    layout->addWidget(m_play_button);
+    layout->addStretch(1);
+    setLayout(layout);
+    m_layout = layout;
+}
+
+VideoPreviewPage::~VideoPreviewPage() {
+    m_video_scene->deleteLater();
 }
 
 void VideoPreviewPage::updateInfo(Peony::FileInfo *info) {
      m_player->setMedia(QUrl(info->uri()));
      m_player->play();
+     qDebug() << m_video_item->boundingRect();
 }
 
 void VideoPreviewPage::cancel() {
     m_player->pause();
+}
+
+void VideoPreviewPage::resizeEvent(QResizeEvent *event) {
+    qDebug() << "VideoPreviewPage::resizeEvent" << event->type();
+
+    if (event->type() == QEvent::Resize && m_video_item->boundingRect().isValid()) {
+        qDebug() << m_video_scene->sceneRect() << " " << m_video_item->boundingRect();
+        m_video_view->resetTransform();
+        int height = m_video_item->boundingRect().height();
+        int width = m_video_item->boundingRect().width();
+        int max_height = m_video_view->height() - 5;
+        int max_width = m_video_view->width() - 5;
+        double val =  qMin(1.0 * max_width / width, 1.0 * max_height / height);
+        m_video_view->scale(val, val);
+        qDebug() << "Resize:" << val;
+    }
 }
