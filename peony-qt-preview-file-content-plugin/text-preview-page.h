@@ -5,7 +5,7 @@
 
 #include <QPlainTextEdit>
 #include <QSyntaxHighlighter>
-#include <QLayout>
+#include <QPushButton>
 
 class TextPreviewPage : public BasePreviewPage
 {
@@ -14,13 +14,19 @@ public:
     explicit TextPreviewPage(QWidget *parent = nullptr);
     ~TextPreviewPage() = default;
 
-    void cancel() override;
-
 private:
     QPlainTextEdit *m_text_edit;
+    QString m_file_path;
+    QPushButton *m_save_button;
 
+    void saveText();
+
+    // BasePreviewPage interface
 public Q_SLOTS:
     void updateInfo(FileInfo *info) override;
+public:
+    void cancel() override;
+
 };
 
 #endif // TEXTPREVIEWPAGE_H
