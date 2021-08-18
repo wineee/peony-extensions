@@ -6,9 +6,9 @@
 
 #include <QPdfBookmarkModel>
 #include <QPdfDocument>
-#include <QPdfPageNavigation>
 #include <QPdfView>
-#include <QtPdfWidgets>
+#include <QPdfPageRenderer>
+#include <QPdfDocumentRenderOptions>
 
 class PdfPreviewPage : public BasePreviewPage
 {
@@ -24,9 +24,9 @@ private Q_SLOTS:
 private:
     //QPdfPageNavigation *m_page_navigation;
     QPdfDocument *m_document;
-    QPdfBookmarkModel *m_bookmarkModel;
+    QPdfBookmarkModel *m_bookmark_model;
     QPdfView *m_pdf_view;
-
+    QPdfPageRenderer *m_page_renderer;
     // BasePreviewPage interface
 public:
     void cancel() override;

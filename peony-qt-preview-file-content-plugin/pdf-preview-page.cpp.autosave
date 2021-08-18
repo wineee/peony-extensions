@@ -3,6 +3,7 @@
 PdfPreviewPage::PdfPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     m_document = new QPdfDocument(this);
+    m_document->render()
     m_bookmark_model = new QPdfBookmarkModel(this);
     m_bookmark_model->setDocument(m_document);
     m_pdf_view = new QPdfView(this);

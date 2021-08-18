@@ -15,7 +15,7 @@ class ImagePreviewPage : public BasePreviewPage
     Q_OBJECT
 public:
     explicit ImagePreviewPage(QWidget *parent = nullptr);
-    ~ImagePreviewPage() = default;
+    ~ImagePreviewPage();
 
 private:
     QImage image;
@@ -39,6 +39,7 @@ public Q_SLOTS:
     // QWidget interface
 protected:
     void paintEvent(QPaintEvent *event) override;
+
 };
 
 #endif // IMAGEPREVIEWPAGE_H

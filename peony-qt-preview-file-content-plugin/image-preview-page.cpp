@@ -6,7 +6,7 @@ ImagePreviewPage::ImagePreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     m_image_scene  = new QGraphicsScene;
     m_image_item = new QGraphicsPixmapItem;
-    m_image_view = new QGraphicsView;
+    m_image_view = new QGraphicsView(m_image_scene);
     m_image_view->setScene(m_image_scene);
 
     m_horizontal_flip_button = new QPushButton(this);
@@ -24,6 +24,10 @@ ImagePreviewPage::ImagePreviewPage(QWidget *parent) : BasePreviewPage(parent)
     setLayout(m_layout);
 }
 
+ImagePreviewPage::~ImagePreviewPage() {
+   m_image_view->deleteLater();
+}
+
 void ImagePreviewPage::updateInfo(Peony::FileInfo *info) {
     QPixmap newPixmap(info->filePath());
     m_image_item = m_image_scene->addPixmap(newPixmap);
@@ -36,6 +40,7 @@ void ImagePreviewPage::cancel() {
 }
 
 void ImagePreviewPage::paintEvent(QPaintEvent *event) {
+    Q_UNUSED(event)
     m_image_view->resetTransform();
     int height = m_image_item->pixmap().height();
     int width = m_image_item->pixmap().width();

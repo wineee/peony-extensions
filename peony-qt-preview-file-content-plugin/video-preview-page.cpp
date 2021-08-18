@@ -8,6 +8,8 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_video_item = new QGraphicsVideoItem;
     m_video_scene = new QGraphicsScene;
     m_video_view = new QGraphicsView(m_video_scene);
+    m_video_view->setDragMode(QGraphicsView::NoDrag);
+    m_video_view->setStyleSheet("padding:0px;border:0px");
 
     m_video_scene->addItem(m_video_item);
     m_player->setVideoOutput(m_video_item);
@@ -71,6 +73,11 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
         m_player->setPosition(m_position_slider->value());
     });
 
+    connect(m_video_item, &QGraphicsVideoItem::nativeSizeChanged, this, [this]() {
+        qDebug() << "nativeSizeChanged:" << m_video_item->boundingRect().isValid();
+        QResizeEvent *event = new QResizeEvent(size(), size());
+        Q_EMIT resizeEvent(event);
+    });
     // set layout
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_video_view, 30);
@@ -101,13 +108,14 @@ void VideoPreviewPage::cancel() {
 }
 
 void VideoPreviewPage::resizeEvent(QResizeEvent *event) {
-    qDebug() << "VideoPreviewPage::resizeEvent" << event->type();
+    qDebug() << "     VideoPreviewPage::resizeEvent" << event->size() << " "
+             << m_video_item->boundingRect() << " " << m_video_item->nativeSize();
 
-    if (event->type() == QEvent::Resize && m_video_item->boundingRect().isValid()) {
+    if (m_video_scene->sceneRect().isValid()) {
         qDebug() << m_video_scene->sceneRect() << " " << m_video_item->boundingRect();
         m_video_view->resetTransform();
-        int height = m_video_item->boundingRect().height();
-        int width = m_video_item->boundingRect().width();
+        int height = m_video_scene->sceneRect().height();
+        int width = m_video_scene->sceneRect().width();
         int max_height = m_video_view->height() - 5;
         int max_width = m_video_view->width() - 5;
         double val =  qMin(1.0 * max_width / width, 1.0 * max_height / height);
