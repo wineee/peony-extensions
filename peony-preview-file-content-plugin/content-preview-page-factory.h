@@ -23,7 +23,7 @@
 #ifndef CONTENTPREVIEWPAGEFACTORY_H
 #define CONTENTPREVIEWPAGEFACTORY_H
 
-#include "peony-qt-preview-file-content-plugin_global.h"
+#include "peony-preview-file-content-plugin_global.h"
 #include "preview-page-plugin-iface.h"
 
 class PEONYQTPREVIEWFILECONTENTPLUGINSHARED_EXPORT ContentPreviewPageFactory : public QObject, public Peony::PreviewPagePluginIface

@@ -31,14 +31,7 @@
 #include "file-info.h"
 #include "file-watcher.h"
 
-#include "base-preview-page.h"
-#include "other-preview-page.h"
-#include "audio-preview-page.h"
-#include "text-preview-page.h"
-#include "pdf-preview-page.h"
-#include "video-preview-page.h"
-#include "image-preview-page.h"
-#include "doc-preview-page.h"
+#include "preview-page-manger.h"
 
 using Peony::FileWatcher;
 using Peony::FileInfo;

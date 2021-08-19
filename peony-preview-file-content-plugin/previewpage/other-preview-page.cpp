@@ -12,7 +12,7 @@ using Peony::ThumbnailManager;
 OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     qDebug() << "init OtherPreviewPage";
-    m_layout = new QGridLayout(this);
+    m_layout = new QVBoxLayout(this);
     setLayout(m_layout);
     m_icon = new IconButton(this);
     m_icon->setIconSize(QSize(96, 96));

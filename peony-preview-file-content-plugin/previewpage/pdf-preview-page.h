@@ -4,11 +4,23 @@
 #include <QObject>
 #include "base-preview-page.h"
 
+#include <QtPdf>
 #include <QPdfBookmarkModel>
 #include <QPdfDocument>
 #include <QPdfView>
 #include <QPdfPageRenderer>
-#include <QPdfDocumentRenderOptions>
+
+/*
+class QPdfWidget : public QPdfView {
+    Q_OBJECT
+public:
+    explicit QPdfWidget(QWidget *parent = nullptr);
+
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent *event) override;
+};
+*/
 
 class PdfPreviewPage : public BasePreviewPage
 {
@@ -22,11 +34,12 @@ private Q_SLOTS:
     void pageNumberEdited();
 
 private:
-    //QPdfPageNavigation *m_page_navigation;
     QPdfDocument *m_document;
     QPdfBookmarkModel *m_bookmark_model;
     QPdfView *m_pdf_view;
-    QPdfPageRenderer *m_page_renderer;
+    //QPdfPageRenderer *m_page_renderer;
+    //QPdfPageNavigation *m_page_navigation;
+
     // BasePreviewPage interface
 public:
     void cancel() override;

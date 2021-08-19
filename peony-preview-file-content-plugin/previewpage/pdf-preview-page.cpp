@@ -1,5 +1,19 @@
 #include "pdf-preview-page.h"
 
+#include <QtPdfWidgets>
+/*
+QPdfWidget::QPdfWidget(QWidget *parent) : QPdfView(parent) {
+     setWindowFlags(Qt::FramelessWindowHint);
+}
+
+void QPdfWidget::resizeEvent(QResizeEvent *event) {
+//    QPdfView tmp = *this;
+//    tmp.resizeEvent(event);
+//    *this = qobject_cast<QPdfWidget>(tmp);
+     QPdfView::resizeEvent(event);
+     qDebug() << event->size() << " " << this->zoomFactor();
+}
+*/
 PdfPreviewPage::PdfPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     m_document = new QPdfDocument(this);
@@ -7,11 +21,11 @@ PdfPreviewPage::PdfPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_bookmark_model->setDocument(m_document);
     m_pdf_view = new QPdfView(this);
     m_pdf_view->setDocument(m_document);
-    m_pdf_view->setZoomMode(QPdfView::CustomZoom); // FitInView
+    m_pdf_view->setZoomMode(QPdfView::FitInView);
     m_pdf_view->setPageMode(QPdfView::MultiPage);
 //    m_page_renderer = new QPdfPageRenderer;
 //    m_page_renderer->setDocument(m_document);
-//    m_page_renderer->setRenderMode(Qt::MultiThreaded);
+//    m_page_renderer->setRenderMode(QPdfPageRenderer::RenderMode::MultiThreaded);
     m_layout = new QVBoxLayout(this);
     m_layout->addWidget(m_pdf_view);
     setLayout(m_layout);

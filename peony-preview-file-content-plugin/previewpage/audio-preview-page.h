@@ -16,6 +16,7 @@ class AudioPreviewPage : public BasePreviewPage
 public:
     explicit AudioPreviewPage(QWidget *parent = nullptr);
     ~AudioPreviewPage() = default;
+
 private:
     QPushButton *m_button;
     QPushButton *volume_button;

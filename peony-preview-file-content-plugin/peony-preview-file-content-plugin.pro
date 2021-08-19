@@ -15,33 +15,35 @@ CONFIG += debug c++11 link_pkgconfig plugin no_keywords
 PKGCONFIG += peony
 
 SOURCES += \
-    audio-preview-page.cpp \
-    base-preview-page.cpp \
+    preview-page-manger.cpp \
+    previewpage/audio-preview-page.cpp \
+    previewpage/base-preview-page.cpp \
     components/icon-button.cpp \
     components/slider.cpp \
     content-preview-page-factory.cpp \
     content-preview-page.cpp \
-    doc-preview-page.cpp \
-    image-preview-page.cpp \
-    pdf-preview-page.cpp \
-    video-preview-page.cpp \
-    other-preview-page.cpp \
-    text-preview-page.cpp
+    previewpage/doc-preview-page.cpp \
+    previewpage/image-preview-page.cpp \
+    previewpage/pdf-preview-page.cpp \
+    previewpage/video-preview-page.cpp \
+    previewpage/other-preview-page.cpp \
+    previewpage/text-preview-page.cpp
 
 HEADERS += \
-    audio-preview-page.h \
-    base-preview-page.h \
+    preview-page-manger.h \
+    previewpage/audio-preview-page.h \
+    previewpage/base-preview-page.h \
     components/icon-button.h \
     components/slider.h \
     content-preview-page-factory.h \
-    doc-preview-page.h \
-    image-preview-page.h \
-    other-preview-page.h \
-    pdf-preview-page.h \
+    previewpage/doc-preview-page.h \
+    previewpage/image-preview-page.h \
+    previewpage/other-preview-page.h \
+    previewpage/pdf-preview-page.h \
     peony-qt-preview-file-content-plugin_global.h \
-    video-preview-page.h \
+    previewpage/video-preview-page.h \
     content-preview-page.h \
-    text-preview-page.h
+    previewpage/text-preview-page.h
 
 target.path = $$[QT_INSTALL_LIBS]/peony-extensions
 INSTALLS += target
