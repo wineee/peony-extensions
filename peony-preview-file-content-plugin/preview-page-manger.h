@@ -9,6 +9,7 @@
 #include "previewpage/video-preview-page.h"
 #include "previewpage/image-preview-page.h"
 #include "previewpage/doc-preview-page.h"
+#include "previewpage/html-preview-page.h"
 
 class PreviewPageManger
 {

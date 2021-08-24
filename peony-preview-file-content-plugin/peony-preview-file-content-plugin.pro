@@ -12,6 +12,7 @@ include(../common.pri)
 
 CONFIG += debug c++11 link_pkgconfig plugin no_keywords
 
+
 PKGCONFIG += peony
 
 SOURCES += \
@@ -23,6 +24,7 @@ SOURCES += \
     content-preview-page-factory.cpp \
     content-preview-page.cpp \
     previewpage/doc-preview-page.cpp \
+    previewpage/html-preview-page.cpp \
     previewpage/image-preview-page.cpp \
     previewpage/pdf-preview-page.cpp \
     previewpage/video-preview-page.cpp \
@@ -37,6 +39,7 @@ HEADERS += \
     components/slider.h \
     content-preview-page-factory.h \
     previewpage/doc-preview-page.h \
+    previewpage/html-preview-page.h \
     previewpage/image-preview-page.h \
     previewpage/other-preview-page.h \
     previewpage/pdf-preview-page.h \

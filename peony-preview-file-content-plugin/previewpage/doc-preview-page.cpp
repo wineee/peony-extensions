@@ -1,5 +1,4 @@
 #include "doc-preview-page.h"
-#include <QVBoxLayout>
 #include <QDebug>
 
 DocPreviewPage::DocPreviewPage(QWidget *parent) : BasePreviewPage(parent)

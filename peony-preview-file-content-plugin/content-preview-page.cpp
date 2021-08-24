@@ -30,10 +30,11 @@ ContentPreviewPage::ContentPreviewPage(QWidget *parent) : QStackedWidget(parent)
     m_preview_widget[3] = new VideoPreviewPage(this);
     m_preview_widget[4] = new ImagePreviewPage(this);
     m_preview_widget[5] = new DocPreviewPage(this);
+    m_preview_widget[6] = new HtmlPreviewPage(this);
 
     addWidget(m_other_preview_widget);
     addWidget(m_empty_tab_widget);
-    for (int cas = 0; cas < 6; ++cas) {
+    for (int cas = 0; cas < 7; ++cas) {
         addWidget(m_preview_widget[cas]);
     }
     setCurrentWidget(m_empty_tab_widget);
@@ -117,6 +118,13 @@ void ContentPreviewPage::startPreview() {
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);
                 m_preview_cas = 5;
+                break;
+            }
+            if (m_current_uri.contains(".html")) {
+                auto previewPage = qobject_cast<HtmlPreviewPage*>(m_preview_widget[6]);
+                previewPage->updateInfo(m_info.get());
+                setCurrentWidget(previewPage);
+                m_preview_cas = 6;
                 break;
             }
             auto previewPage = qobject_cast<OtherPreviewPage*>(m_other_preview_widget);

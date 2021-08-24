@@ -60,7 +60,7 @@ private:
 
     QWidget *m_empty_tab_widget;
     BasePreviewPage *m_other_preview_widget;
-    BasePreviewPage *m_preview_widget[6];
+    BasePreviewPage *m_preview_widget[7];
     int m_preview_cas;
 
     std::shared_ptr<FileInfo> m_info;
