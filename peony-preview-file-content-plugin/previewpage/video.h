@@ -9,7 +9,7 @@
 #include <QVBoxLayout>
 #include <QTimer>
 
-#include "base-preview-page.h"
+#include "previewpage/base.h"
 #include "components/slider.h"
 
 class VideoPreviewPage : public BasePreviewPage

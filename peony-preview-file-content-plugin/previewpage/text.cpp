@@ -1,7 +1,7 @@
-#include "text-preview-page.h"
+#include "previewpage/text.h"
+
 #include <QFile>
 #include <QTextStream>
-#include <QDebug>
 
 TextPreviewPage::TextPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {    
@@ -23,7 +23,7 @@ void TextPreviewPage::cancel() {
     m_file_path.clear();
 }
 
-void TextPreviewPage::updateInfo(FileInfo *info) {
+void TextPreviewPage::updateInfo(Peony::FileInfo *info) {
     m_file_path = info->filePath();
     QFile file(m_file_path);
     qDebug() << "TextPreviewPage::updateInfo:" << info->uri();

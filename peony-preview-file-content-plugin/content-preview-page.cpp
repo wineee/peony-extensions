@@ -52,11 +52,11 @@ void ContentPreviewPage::prepare(const QString &uri, PreviewType type) {
     m_current_uri = uri;
     m_current_type = type;
 
-    m_info = FileInfo::fromUri(uri);
+    m_info = Peony::FileInfo::fromUri(uri);
     m_support = uri.contains("file:///");
 
-    m_watcher = std::make_shared<FileWatcher>(uri);
-    connect(m_watcher.get(), &FileWatcher::locationChanged, [=](const QString &, const QString &newUri) {
+    m_watcher = std::make_shared<Peony::FileWatcher>(uri);
+    connect(m_watcher.get(), &Peony::FileWatcher::locationChanged, [=](const QString &, const QString &newUri) {
         this->prepare(newUri);
         this->startPreview();
     });
@@ -70,7 +70,7 @@ void ContentPreviewPage::prepare(const QString &uri) {
 void ContentPreviewPage::startPreview() {
     qDebug() << "startPreview: " << m_current_uri<< " type:" << m_current_type;
     if (m_info->displayName().isEmpty()) {
-        FileInfoJob j(m_info->uri());
+        Peony::FileInfoJob j(m_info->uri());
         j.querySync();
     }
 

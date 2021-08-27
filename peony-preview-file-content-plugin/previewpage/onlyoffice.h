@@ -1,23 +1,25 @@
-#ifndef HTMLPREVIEWPAGE_H
-#define HTMLPREVIEWPAGE_H
+#ifndef DOCPREVIEWPAGE_H
+#define DOCPREVIEWPAGE_H
 
-#include "base-preview-page.h"
+#include "previewpage/base.h"
 
 #include <QWebChannel>
 #include <QWebEngineView>
 #include <QWebEnginePage>
+#include <QProcess>
 
-class HtmlPreviewPage : public BasePreviewPage
+class DocPreviewPage : public BasePreviewPage
 {
     Q_OBJECT
 public:
-    explicit HtmlPreviewPage(QWidget *parent = nullptr);
-    ~HtmlPreviewPage() = default;
+    explicit DocPreviewPage(QWidget *parent = nullptr);
+    ~DocPreviewPage() = default;
 
 private:
     QWebEngineView *m_web_view;
     QWebChannel *m_web_channel;
     QWebEnginePage *m_web_page;
+    qint64 m_proc_pid = -1;
 
     // BasePreviewPage interface
 public:
@@ -27,4 +29,4 @@ public Q_SLOTS:
     void updateInfo(Peony::FileInfo *info) override;
 };
 
-#endif // HTMLPREVIEWPAGE_H
+#endif // DOCPREVIEWPAGE_H

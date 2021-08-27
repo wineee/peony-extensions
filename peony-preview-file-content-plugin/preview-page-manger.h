@@ -1,15 +1,14 @@
 #ifndef PREVIEWPAGEMANGER_H
 #define PREVIEWPAGEMANGER_H
 
-#include "previewpage/base-preview-page.h"
-#include "previewpage/other-preview-page.h"
-#include "previewpage/audio-preview-page.h"
-#include "previewpage/text-preview-page.h"
-#include "previewpage/pdf-preview-page.h"
-#include "previewpage/video-preview-page.h"
-#include "previewpage/image-preview-page.h"
-#include "previewpage/doc-preview-page.h"
-#include "previewpage/html-preview-page.h"
+#include "previewpage/other.h"
+#include "previewpage/audio.h"
+#include "previewpage/text.h"
+#include "previewpage/pdf.h"
+#include "previewpage/video.h"
+#include "previewpage/image.h"
+#include "previewpage/onlyoffice.h"
+#include "previewpage/html.h"
 
 class PreviewPageManger
 {

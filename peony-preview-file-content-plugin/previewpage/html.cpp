@@ -1,4 +1,4 @@
-#include "html-preview-page.h"
+#include "previewpage/html.h"
 
 HtmlPreviewPage::HtmlPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {

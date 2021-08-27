@@ -1,6 +1,4 @@
-#include "image-preview-page.h"
-
-#include <QImageReader>
+#include "previewpage/image.h"
 
 ImagePreviewPage::ImagePreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {

@@ -1,5 +1,4 @@
-#include "doc-preview-page.h"
-#include <QDebug>
+#include "previewpage/onlyoffice.h"
 
 DocPreviewPage::DocPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {

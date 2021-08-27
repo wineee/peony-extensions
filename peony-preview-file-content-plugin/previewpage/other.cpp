@@ -1,4 +1,4 @@
-#include "other-preview-page.h"
+#include "previewpage/other.h"
 
 #include <QDebug>
 #include <QDateTime>
@@ -6,8 +6,6 @@
 #include <QPaintEvent>
 
 #include "thumbnail-manager.h"
-
-using Peony::ThumbnailManager;
 
 OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
@@ -37,10 +35,10 @@ OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_layout->addWidget(form);
 }
 
-void OtherPreviewPage::updateInfo(FileInfo *info)
+void OtherPreviewPage::updateInfo(Peony::FileInfo *info)
 {
     qDebug() << "OtherPreviewPage::updateInfo";
-    auto thumbnail = ThumbnailManager::getInstance()->tryGetThumbnail(info->uri());
+    auto thumbnail = Peony::ThumbnailManager::getInstance()->tryGetThumbnail(info->uri());
     if (!thumbnail.isNull()) {
         QUrl url = info->uri();
         thumbnail.addFile(url.path());

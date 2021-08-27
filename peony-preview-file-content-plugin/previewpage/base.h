@@ -5,12 +5,10 @@
 #include <QObject>
 #include <QWidget>
 #include <QLayout>
+#include <QDebug>
 
 #include "file-info.h"
 #include "file-info-job.h"
-
-using Peony::FileInfoJob;
-using Peony::FileInfo;
 
 class BasePreviewPage : public QFrame
 {
@@ -25,7 +23,7 @@ protected:
     QVBoxLayout *m_layout = nullptr;
 
 public Q_SLOTS:
-    virtual void updateInfo(FileInfo *info) = 0;
+    virtual void updateInfo(Peony::FileInfo *info) = 0;
 };
 
 #endif // BASEPREVIEWPAGE_H

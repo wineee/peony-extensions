@@ -1,4 +1,5 @@
-#include "video-preview-page.h"
+#include "previewpage/video.h"
+
 #include <QStyle>
 #include <QSpacerItem>
 

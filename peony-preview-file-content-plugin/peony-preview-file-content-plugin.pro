@@ -17,36 +17,36 @@ PKGCONFIG += peony
 
 SOURCES += \
     preview-page-manger.cpp \
-    previewpage/audio-preview-page.cpp \
-    previewpage/base-preview-page.cpp \
+    previewpage/audio.cpp \
+    previewpage/base.cpp \
     components/icon-button.cpp \
     components/slider.cpp \
     content-preview-page-factory.cpp \
     content-preview-page.cpp \
-    previewpage/doc-preview-page.cpp \
-    previewpage/html-preview-page.cpp \
-    previewpage/image-preview-page.cpp \
-    previewpage/pdf-preview-page.cpp \
-    previewpage/video-preview-page.cpp \
-    previewpage/other-preview-page.cpp \
-    previewpage/text-preview-page.cpp
+    previewpage/onlyoffice.cpp \
+    previewpage/html.cpp \
+    previewpage/image.cpp \
+    previewpage/pdf.cpp \
+    previewpage/video.cpp \
+    previewpage/other.cpp \
+    previewpage/text.cpp
 
 HEADERS += \
     preview-page-manger.h \
-    previewpage/audio-preview-page.h \
-    previewpage/base-preview-page.h \
+    previewpage/audio.h \
+    previewpage/base.h \
     components/icon-button.h \
     components/slider.h \
     content-preview-page-factory.h \
-    previewpage/doc-preview-page.h \
-    previewpage/html-preview-page.h \
-    previewpage/image-preview-page.h \
-    previewpage/other-preview-page.h \
-    previewpage/pdf-preview-page.h \
+    previewpage/onlyoffice.h \
+    previewpage/html.h \
+    previewpage/image.h \
+    previewpage/other.h \
+    previewpage/pdf.h \
     peony-qt-preview-file-content-plugin_global.h \
-    previewpage/video-preview-page.h \
+    previewpage/video.h \
     content-preview-page.h \
-    previewpage/text-preview-page.h
+    previewpage/text.h
 
 target.path = $$[QT_INSTALL_LIBS]/peony-extensions
 INSTALLS += target

@@ -7,7 +7,7 @@
 #include <QLayout>
 #include <QTimer>
 
-#include "base-preview-page.h"
+#include "previewpage/base.h"
 #include "components/slider.h"
 
 class AudioPreviewPage : public BasePreviewPage
@@ -28,7 +28,7 @@ private:
 
     // BasePreviewPage interface
 public Q_SLOTS:
-    void updateInfo(FileInfo *info) override;
+    void updateInfo(Peony::FileInfo *info) override;
 public:
     void cancel() override;
 };

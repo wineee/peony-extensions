@@ -1,4 +1,4 @@
-#include "pdf-preview-page.h"
+#include "previewpage/pdf.h"
 
 #include <QtPdfWidgets>
 /*
@@ -23,6 +23,7 @@ PdfPreviewPage::PdfPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_pdf_view->setDocument(m_document);
     m_pdf_view->setZoomMode(QPdfView::FitInView);
     m_pdf_view->setPageMode(QPdfView::MultiPage);
+
 //    m_page_renderer = new QPdfPageRenderer;
 //    m_page_renderer->setDocument(m_document);
 //    m_page_renderer->setRenderMode(QPdfPageRenderer::RenderMode::MultiThreaded);

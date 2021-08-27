@@ -1,7 +1,7 @@
 #ifndef TEXTPREVIEWPAGE_H
 #define TEXTPREVIEWPAGE_H
 
-#include "base-preview-page.h"
+#include "previewpage/base.h"
 
 #include <QPlainTextEdit>
 #include <QSyntaxHighlighter>
@@ -21,9 +21,15 @@ private:
 
     void saveText();
 
+//   TextPreviewPage* TextPreviewPage::getInstance() {
+//        if (!globalInstance) {
+//            globalInstance = new TextPreviewPage;
+//        }
+//        return globalInstance;
+//    }
     // BasePreviewPage interface
 public Q_SLOTS:
-    void updateInfo(FileInfo *info) override;
+    void updateInfo(Peony::FileInfo *info) override;
 public:
     void cancel() override;
 

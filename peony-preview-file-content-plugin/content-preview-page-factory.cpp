@@ -33,9 +33,8 @@ ContentPreviewPageFactory::~ContentPreviewPageFactory()
 
 }
 
-static ContentPreviewPageFactory *globalInstance = nullptr;
-
 ContentPreviewPageFactory* ContentPreviewPageFactory::getInstance() {
+    static ContentPreviewPageFactory *globalInstance = nullptr;
     if (!globalInstance) {
         globalInstance = new ContentPreviewPageFactory;
     }

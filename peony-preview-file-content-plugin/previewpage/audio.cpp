@@ -1,4 +1,5 @@
-#include "audio-preview-page.h"
+#include "previewpage/audio.h"
+
 #include <QDebug>
 #include <QMediaPlaylist>
 #include <QStyle>
@@ -81,7 +82,7 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_layout->addWidget(m_progress);
 }
 
-void AudioPreviewPage::updateInfo(FileInfo *info) {
+void AudioPreviewPage::updateInfo(Peony::FileInfo *info) {
     m_player->setMedia(QUrl(info->uri()));
     m_player->play();
     timer->start();

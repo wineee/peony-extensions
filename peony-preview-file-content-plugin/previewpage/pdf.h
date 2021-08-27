@@ -2,7 +2,7 @@
 #define PDFPREVIEWPAGE_H
 
 #include <QObject>
-#include "base-preview-page.h"
+#include "previewpage/base.h"
 
 #include <QtPdf>
 #include <QPdfBookmarkModel>

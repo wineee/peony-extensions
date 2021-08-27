@@ -1,4 +1,4 @@
-#include "base-preview-page.h"
+#include "previewpage/base.h"
 
 BasePreviewPage::BasePreviewPage(QWidget *parent) : QFrame(parent)
 {

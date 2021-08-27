@@ -13,7 +13,7 @@
 #include <QFileInfo>
 #include <QUrl>
 
-#include "base-preview-page.h"
+#include "previewpage/base.h"
 #include "components/icon-button.h"
 
 class OtherPreviewPage : public BasePreviewPage
@@ -36,7 +36,7 @@ public:
     void cancel() override;
 
 public Q_SLOTS:
-    void updateInfo(FileInfo *info) override;
+    void updateInfo(Peony::FileInfo *info) override;
 
     // QWidget interface
 protected:

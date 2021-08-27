@@ -1,7 +1,7 @@
 #ifndef IMAGEPREVIEWPAGE_H
 #define IMAGEPREVIEWPAGE_H
 
-#include "base-preview-page.h"
+#include "previewpage/base.h"
 
 #include <QImage>
 #include <QLabel>

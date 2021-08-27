@@ -33,9 +33,6 @@
 
 #include "preview-page-manger.h"
 
-using Peony::FileWatcher;
-using Peony::FileInfo;
-
 class ContentPreviewPage : public QStackedWidget, public Peony::PreviewPageIface
 {
     Q_OBJECT
@@ -63,8 +60,8 @@ private:
     BasePreviewPage *m_preview_widget[7];
     int m_preview_cas;
 
-    std::shared_ptr<FileInfo> m_info;
-    std::shared_ptr<FileWatcher> m_watcher;
+    std::shared_ptr<Peony::FileInfo> m_info;
+    std::shared_ptr<Peony::FileWatcher> m_watcher;
 
     bool m_support = true;
 };
