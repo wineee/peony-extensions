@@ -1,4 +1,4 @@
-QT += core gui widgets multimedia multimediawidgets webengine webenginewidgets pdf pdfwidgets
+QT += core gui widgets multimedia multimediawidgets webengine webenginewidgets pdf pdfwidgets KSyntaxHighlighting
 
 TARGET = peony-qt-preview-file-content-plugin videographicsitem
 TEMPLATE = lib
@@ -53,4 +53,3 @@ INSTALLS += target
 
 RESOURCES += \
     resources/resources.qrc
-

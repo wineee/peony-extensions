@@ -3,9 +3,15 @@
 
 #include "previewpage/base.h"
 
+#include <repository.h>
 #include <QPlainTextEdit>
-#include <QSyntaxHighlighter>
 #include <QPushButton>
+
+namespace KSyntaxHighlighting
+{
+class SyntaxHighlighter;
+class Repository;
+}
 
 class TextPreviewPage : public BasePreviewPage
 {
@@ -19,14 +25,11 @@ private:
     QString m_file_path;
     QPushButton *m_save_button;
 
+    KSyntaxHighlighting::Repository m_repository;
+    KSyntaxHighlighting::SyntaxHighlighter *m_highlighter;
+
     void saveText();
 
-//   TextPreviewPage* TextPreviewPage::getInstance() {
-//        if (!globalInstance) {
-//            globalInstance = new TextPreviewPage;
-//        }
-//        return globalInstance;
-//    }
     // BasePreviewPage interface
 public Q_SLOTS:
     void updateInfo(Peony::FileInfo *info) override;

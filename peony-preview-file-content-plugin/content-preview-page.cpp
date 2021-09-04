@@ -85,7 +85,7 @@ void ContentPreviewPage::startPreview() {
                 m_preview_cas = 0;
                 break;
             }
-            if (m_info->fileType().contains("text")) {
+            if (m_info->fileType().contains("text") || m_current_uri.contains(".cpp")) {
                 auto previewPage = qobject_cast<TextPreviewPage*>(m_preview_widget[1]);
                 previewPage->updateInfo(m_info.get());
                 setCurrentWidget(previewPage);

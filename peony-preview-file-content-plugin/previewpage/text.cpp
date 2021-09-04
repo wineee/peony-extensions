@@ -3,6 +3,12 @@
 #include <QFile>
 #include <QTextStream>
 
+#include <syntaxhighlighter.h>
+#include <definition.h>
+#include <foldingregion.h>
+#include <syntaxhighlighter.h>
+#include <theme.h>
+
 TextPreviewPage::TextPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {    
     m_text_edit = new QPlainTextEdit(this);
@@ -11,6 +17,10 @@ TextPreviewPage::TextPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_save_button = new QPushButton(tr("save"), this);
     connect(m_save_button, &QPushButton::clicked, this, &TextPreviewPage::saveText);
     m_save_button->setShortcut(QKeySequence(QLatin1String("Ctrl+S")));
+
+    m_highlighter = new KSyntaxHighlighting::SyntaxHighlighter(m_text_edit->document());
+    m_text_edit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    m_highlighter->setTheme((palette().color(QPalette::Base).lightness() < 128) ? m_repository.defaultTheme(KSyntaxHighlighting::Repository::DarkTheme) : m_repository.defaultTheme(KSyntaxHighlighting::Repository::LightTheme));
 
     m_layout = new QVBoxLayout(this);
     setLayout(m_layout);
@@ -39,6 +49,15 @@ void TextPreviewPage::updateInfo(Peony::FileInfo *info) {
         m_text_edit->appendPlainText(line);
     }
     m_text_edit->moveCursor(QTextCursor::Start);
+
+    const auto defName = "C++"; // only for test
+    const auto def = m_repository.definitionForName(defName);
+    m_highlighter->setDefinition(def);
+    m_highlighter->rehighlight();
+    for (const auto t : m_repository.definitions()) {
+        qDebug() << t.name();
+    }
+
     file.close();
 }
 
