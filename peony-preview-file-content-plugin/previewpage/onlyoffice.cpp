@@ -50,7 +50,9 @@ void DocPreviewPage::updateInfo(Peony::FileInfo *info) {
 
     m_proc.startDetached(&m_proc_pid);
     /**
-     * @brief update(documentType, fileType, fileName)
+     * \brief update(documentType, fileType, fileName)
+     * \details
+     *  documentType : fileType
      *  word : docx doc odt txt
      *  cell : xlsx xls ods csv
      *  slide : pptx ppt odp

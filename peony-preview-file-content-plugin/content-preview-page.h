@@ -27,11 +27,12 @@
 #include <QStackedWidget>
 #include <memory>
 
-#include "preview-page-plugin-iface.h"
-#include "file-info.h"
-#include "file-watcher.h"
+#include <file-watcher.h>
 
-#include "preview-page-manger.h"
+#include "preview-page-plugin-iface.h"
+#include "preview-file-type.h"
+
+class PreviewPageManger;
 
 class ContentPreviewPage : public QStackedWidget, public Peony::PreviewPageIface
 {
@@ -39,8 +40,9 @@ class ContentPreviewPage : public QStackedWidget, public Peony::PreviewPageIface
 public:
     explicit ContentPreviewPage(QWidget *parent = nullptr);
     ~ContentPreviewPage() override;
+    void prepare(const QString &uri, PreviewType type){
 
-    void prepare(const QString &uri, PreviewType type) override;
+    }
     void prepare(const QString &uri) override;
     void startPreview() override;
     void cancel() override;
@@ -53,14 +55,11 @@ protected:
 
 private:
     QString m_current_uri;
-    PreviewPageIface::PreviewType m_current_type = PreviewPageIface::Other;
+    //PreviewType m_current_type = PreviewPageIface::Other;
+    PreviewPageManger *m_page_manger = nullptr;
 
     QWidget *m_empty_tab_widget;
-    BasePreviewPage *m_other_preview_widget;
-    BasePreviewPage *m_preview_widget[7];
-    int m_preview_cas;
-
-    std::shared_ptr<Peony::FileInfo> m_info;
+    std::shared_ptr<PreviewFileType> m_file_info;
     std::shared_ptr<Peony::FileWatcher> m_watcher;
 
     bool m_support = true;
