@@ -16,6 +16,7 @@ CONFIG += debug c++11 link_pkgconfig plugin no_keywords
 PKGCONFIG += peony
 
 SOURCES += \
+    preview-file-type.cpp \
     preview-page-manger.cpp \
     previewpage/audio.cpp \
     previewpage/base.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
     previewpage/text.cpp
 
 HEADERS += \
+    preview-file-type.h \
     preview-page-manger.h \
     previewpage/audio.h \
     previewpage/base.h \
