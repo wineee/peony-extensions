@@ -2,16 +2,8 @@
 #define OTHERPREVIEWPAGE_H
 
 #include <QLabel>
-#include <QStackedWidget>
-#include <QGridLayout>
 #include <QFormLayout>
 #include <QIcon>
-#include <QWidget>
-#include <QResizeEvent>
-
-#include <QFile>
-#include <QFileInfo>
-#include <QUrl>
 
 #include "previewpage/base.h"
 #include "components/icon-button.h"

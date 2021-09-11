@@ -12,9 +12,11 @@ OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     qDebug() << "init OtherPreviewPage";
     m_layout = new QVBoxLayout(this);
     setLayout(m_layout);
+
     m_icon = new IconButton(this);
     m_icon->setIconSize(QSize(96, 96));
     m_layout->addWidget(m_icon);
+
     m_form = new QFormLayout(this);
     m_display_name_label = new QLabel(this);
     m_display_name_label->setWordWrap(true);
@@ -62,7 +64,6 @@ void OtherPreviewPage::cancel() {
 }
 
 void OtherPreviewPage::resizeEvent(QResizeEvent* event) {
-    //auto e = static_cast<QResizeEvent*>(ev);
     int width = event->size().width() - 50;
     width = qMax(width, 96);
     width = qMin(width, 256);
