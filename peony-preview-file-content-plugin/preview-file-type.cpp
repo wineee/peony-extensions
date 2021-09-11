@@ -6,14 +6,13 @@
 PreviewFileType::PreviewFileType(const QString &uri):
     m_info(Peony::FileInfo::fromUri(uri))
 {
-    m_extension_name = getExtensionName();
-    m_preview_type = getPreviewType();
+//    m_extension_name = getExtensionName();
+//    m_preview_type = getPreviewType();
 }
 
 std::shared_ptr<PreviewFileType> PreviewFileType::fromUri(const QString &uri) {
     return std::make_shared<PreviewFileType>(uri);
 }
-
 
 QString PreviewFileType::getExtensionName() {
     for (int i = m_info->filePath().size()-1; i >= 0; i--)
@@ -28,6 +27,7 @@ PreviewFileType::PreviewType PreviewFileType::getPreviewType() {
     const QString mimeType = m_info->mimeType();
     qDebug() << "Path :" << path << " \nType:" << type << "\n mimeType:"<<mimeType;
 
+    // Prevent .ncm files from being recognized as Video
     if (type == "unknown")
         return Other;
     if (mimeType.startsWith("text") ||

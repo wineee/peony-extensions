@@ -20,9 +20,6 @@ public:
         Other
     };
 
-    PreviewType m_preview_type;
-    QString m_extension_name;
-
     PreviewType getPreviewType();
     QString getExtensionName();
     void sync();
