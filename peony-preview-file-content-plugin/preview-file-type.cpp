@@ -1,6 +1,7 @@
 #include "preview-file-type.h"
 
 #include <file-info-job.h>
+#include <QDebug>
 
 PreviewFileType::PreviewFileType(const QString &uri):
     m_info(Peony::FileInfo::fromUri(uri))
@@ -10,7 +11,7 @@ PreviewFileType::PreviewFileType(const QString &uri):
 }
 
 std::shared_ptr<PreviewFileType> PreviewFileType::fromUri(const QString &uri) {
-    return  std::make_shared<PreviewFileType>(uri);
+    return std::make_shared<PreviewFileType>(uri);
 }
 
 
@@ -22,7 +23,26 @@ QString PreviewFileType::getExtensionName() {
 }
 
 PreviewFileType::PreviewType PreviewFileType::getPreviewType() {
+    QString path = m_info->filePath();
+    QString type = m_info->fileType();
+    const QString mimeType = m_info->mimeType();
+    qDebug() << "Path :" << path << " \nType:" << type << "\n mimeType:"<<mimeType;
 
+    if (type == "unknown")
+        return Other;
+    if (mimeType.startsWith("text") ||
+            mimeType == "application/vnd.nokia.qt.qmakeprofile" ||
+            mimeType == "application/xml")
+        return Text;
+    if (mimeType.startsWith("audio"))
+        return Audio;
+    if (m_info->isVideoFile())
+        return Video;
+    if (m_info->isImageFile())
+        return Image;
+    if (m_info->isPdfFile())
+        return Pdf;
+    return Other;
 }
 
 void PreviewFileType::sync() {

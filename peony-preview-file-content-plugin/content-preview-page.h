@@ -27,10 +27,10 @@
 #include <QStackedWidget>
 #include <memory>
 
+#include <file-watcher.h>
+
 #include "preview-page-plugin-iface.h"
 #include "preview-file-type.h"
-#include <file-info.h>
-#include <file-watcher.h>
 
 class PreviewPageManger;
 

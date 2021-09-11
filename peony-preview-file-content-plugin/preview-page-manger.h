@@ -17,6 +17,7 @@
 
 class PreviewPageManger
 {
+    typedef PreviewFileType::PreviewType PreviewType;
 public:
     PreviewPageManger() = delete;
     explicit PreviewPageManger(ContentPreviewPage *preview_page);
@@ -25,10 +26,14 @@ public:
 public:
     void cancel();
     void startPreview(PreviewFileType *info);
-private:
-    ContentPreviewPage *m_preview_page;
 
-    QMap<PreviewFileType::PreviewType, BasePreviewPage *> m_page_pool;
+private:
+    BasePreviewPage *createPage(PreviewType cas);
+
+private:
+    ContentPreviewPage *the_preview_page;
+
+    QMap<PreviewType, BasePreviewPage *> m_page_pool;
     BasePreviewPage *m_current_page;
 };
 

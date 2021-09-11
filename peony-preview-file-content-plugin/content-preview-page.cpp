@@ -3,17 +3,10 @@
 
 #include <QVBoxLayout>
 #include <QLabel>
-#include <QDebug>
 #include <QPainter>
-#include <QLabel>
 #include <QUrl>
-#include <QMimeDatabase>
-#include <QLocale>
-#include <QResizeEvent>
+
 #include <QDebug>
-
-#include <file-watcher.h>
-
 
 ContentPreviewPage::ContentPreviewPage(QWidget *parent) : QStackedWidget(parent)
 {
