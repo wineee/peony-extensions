@@ -44,11 +44,25 @@ void TextPreviewPage::updateInfo(Peony::FileInfo *info) {
     }
     QTextStream in(&file);
     m_text_edit->clear();
+
+    int line_cnt = 0, char_cnt = 0;
+    bool write_able = info->canWrite();
     while (!in.atEnd()) {
-        QString line = in.readLine();
-        qDebug() << line;
+        QString line = in.readLine(max_line_len);
+        if (line.size() == max_line_len)
+            write_able = false;
         m_text_edit->appendPlainText(line);
+        char_cnt += line.size();
+        line_cnt++;
+        if (line_cnt > max_line_cnt || char_cnt > max_char_cnt) {
+            write_able = false;
+            break;
+        }
     }
+    m_text_edit->setReadOnly(!write_able);
+    m_save_button->setEnabled(write_able);
+    m_save_button->setVisible(write_able);
+
     m_text_edit->moveCursor(QTextCursor::Start);
 
     const auto def = m_repository.definitionForMimeType(info->mimeType());
