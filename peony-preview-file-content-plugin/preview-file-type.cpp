@@ -32,7 +32,9 @@ PreviewFileType::PreviewType PreviewFileType::getPreviewType() {
         return Other;
     if (mimeType.startsWith("text") ||
             mimeType == "application/vnd.nokia.qt.qmakeprofile" ||
-            mimeType == "application/xml")
+            mimeType == "application/xml" ||
+            mimeType == "application/json" ||
+            mimeType == "application/javascript")
         return Text;
     if (mimeType.startsWith("audio"))
         return Audio;

@@ -21,6 +21,10 @@ public:
     ~TextPreviewPage() = default;
 
 private:
+    static const int max_line_cnt = 1000;
+    static const int max_line_len = 1000;
+    static const int max_char_cnt = 10000;
+
     QPlainTextEdit *m_text_edit;
     QString m_file_path;
     QPushButton *m_save_button;
