@@ -17,6 +17,29 @@
 div#topLevelToolbar.toolbar {
     display:  none !important;
 }
+
+#viewerContextMenu {
+    display:  none !important;
+}
+
+#fileInput {
+    height: 0;
+    display:  none !important;
+}
+
+#viewerContainer {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  top: 0px; /* 32 */
+  right: 0;
+  bottom: 0;
+  left: 0;
+  outline: none;
+
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
 /******************************************/
 
 .textLayer {
@@ -614,19 +637,7 @@ html[dir='rtl'] #sidebarContent {
   box-shadow: inset 1px 0 0 hsla(0,0%,0%,.25);
 }
 
-#viewerContainer {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  position: absolute;
-  top: 32px;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  outline: none;
 
-  transition-duration: 200ms;
-  transition-timing-function: ease;
-}
 html[dir='ltr'] #viewerContainer {
   box-shadow: inset 1px 0 0 hsla(0,0%,100%,.05);
 }
