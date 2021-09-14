@@ -9,6 +9,7 @@
 #include "previewpage/image.h"
 #include "previewpage/onlyoffice.h"
 #include "previewpage/html.h"
+#include "previewpage/pdf2.h"
 
 #include "content-preview-page.h"
 #include "preview-file-type.h"

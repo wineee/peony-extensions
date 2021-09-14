@@ -1,4 +1,5 @@
-QT += core gui widgets multimedia multimediawidgets webengine webenginewidgets pdf pdfwidgets KSyntaxHighlighting
+QT += core gui widgets multimedia multimediawidgets \
+webengine webenginewidgets webenginecore webchannel pdf pdfwidgets KSyntaxHighlighting
 
 TARGET = peony-qt-preview-file-content-plugin videographicsitem
 TEMPLATE = lib
@@ -9,9 +10,9 @@ DEFINES += PEONYADMIN_LIBRARY
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 include(../common.pri)
+include(third_party/qpdflib/qpdflib.pri)
 
 CONFIG += debug c++11 link_pkgconfig plugin no_keywords
-
 
 PKGCONFIG += peony
 
@@ -28,6 +29,7 @@ SOURCES += \
     previewpage/html.cpp \
     previewpage/image.cpp \
     previewpage/pdf.cpp \
+    previewpage/pdf2.cpp \
     previewpage/video.cpp \
     previewpage/other.cpp \
     previewpage/text.cpp
@@ -46,6 +48,7 @@ HEADERS += \
     previewpage/other.h \
     previewpage/pdf.h \
     peony-qt-preview-file-content-plugin_global.h \
+    previewpage/pdf2.h \
     previewpage/video.h \
     content-preview-page.h \
     previewpage/text.h
@@ -55,3 +58,4 @@ INSTALLS += target
 
 RESOURCES += \
     resources/resources.qrc
+

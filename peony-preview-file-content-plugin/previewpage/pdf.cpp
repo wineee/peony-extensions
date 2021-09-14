@@ -16,6 +16,8 @@ void QPdfWidget::resizeEvent(QResizeEvent *event) {
 */
 PdfPreviewPage::PdfPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
+//    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+//    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
     m_document = new QPdfDocument(this);
     m_bookmark_model = new QPdfBookmarkModel(this);
     m_bookmark_model->setDocument(m_document);

@@ -8,8 +8,8 @@ PreviewPageManger::PreviewPageManger(ContentPreviewPage *preview_page) :
 }
 
 PreviewPageManger::~PreviewPageManger() {
-//    qDeleteAll(m_page_pool);
-//    m_page_pool.clear();
+    qDeleteAll(m_page_pool);
+    m_page_pool.clear();
 }
 
 BasePreviewPage *PreviewPageManger::createPage(PreviewType cas) {
@@ -23,7 +23,7 @@ BasePreviewPage *PreviewPageManger::createPage(PreviewType cas) {
     case PreviewType::Image:
         return new ImagePreviewPage;
     case PreviewType::Pdf:
-        return new PdfPreviewPage;
+        return new Pdf2PreviewPage;
     case PreviewType::OfficeDoc:
         return new DocPreviewPage;
     default:

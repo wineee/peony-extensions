@@ -5,7 +5,7 @@ DocPreviewPage::DocPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_web_view = new QWebEngineView(this);
     m_web_channel = new QWebChannel(this);
     m_web_page = new QWebEnginePage(this);
-    m_web_page->load(QUrl("qrc:/index.html"));
+    m_web_page->load(QUrl("qrc:/onlyoffice/index.html"));
     m_web_page->setWebChannel(m_web_channel);
     //m_web_view->setUrl(QUrl("qrc:/index.html"));
     m_web_view->setPage(m_web_page);

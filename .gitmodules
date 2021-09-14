@@ -1,0 +1,3 @@
+[submodule "pdfjs"]
+	path = peony-preview-file-content-plugin/resources/third_party/pdfjs
+	url = https://github.com/mozilla/pdf.js.git
