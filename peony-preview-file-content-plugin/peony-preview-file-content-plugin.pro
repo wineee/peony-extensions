@@ -30,6 +30,7 @@ SOURCES += \
     previewpage/image.cpp \
     previewpage/pdf.cpp \
     previewpage/pdf2.cpp \
+    previewpage/to-pdf.cpp \
     previewpage/video.cpp \
     previewpage/other.cpp \
     previewpage/text.cpp
@@ -49,6 +50,7 @@ HEADERS += \
     previewpage/pdf.h \
     peony-qt-preview-file-content-plugin_global.h \
     previewpage/pdf2.h \
+    previewpage/to-pdf.h \
     previewpage/video.h \
     content-preview-page.h \
     previewpage/text.h

@@ -23,9 +23,10 @@ BasePreviewPage *PreviewPageManger::createPage(PreviewType cas) {
     case PreviewType::Image:
         return new ImagePreviewPage;
     case PreviewType::Pdf:
-        return new Pdf2PreviewPage;
+        return new PdfPreviewPage;
     case PreviewType::OfficeDoc:
-        return new DocPreviewPage;
+        //return new DocPreviewPage;
+        return new ToPdfPreviewPage;
     default:
         return new OtherPreviewPage;
     }

@@ -44,6 +44,8 @@ PreviewFileType::PreviewType PreviewFileType::getPreviewType() {
         return Image;
     if (m_info->isPdfFile())
         return Pdf;
+    if (getExtensionName() == "doc")
+        return OfficeDoc;
     return Other;
 }
 
