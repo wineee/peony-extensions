@@ -25,7 +25,7 @@ struct QPdfWidgetPrivate;
 
 // NOTE:
 // Enable this to use cross-origin URL fetch
-// #define QPDF_WIDGET_USE_CORS
+//#define QPDF_WIDGET_USE_CORS
 
 
 /**

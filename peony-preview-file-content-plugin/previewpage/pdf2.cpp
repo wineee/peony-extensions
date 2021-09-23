@@ -1,6 +1,4 @@
 #include "previewpage/pdf2.h"
-#include <QDir>
-#include <QtWebEngine>
 
 Pdf2PreviewPage::Pdf2PreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
@@ -18,4 +16,8 @@ void Pdf2PreviewPage::cancel() {
 
 void Pdf2PreviewPage::updateInfo(Peony::FileInfo *info) {
     m_pdf_widget->loadFile(info->filePath());
+}
+
+void Pdf2PreviewPage::updateInfo(QString path) {
+    m_pdf_widget->loadFile(path);
 }

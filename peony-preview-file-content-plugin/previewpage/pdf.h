@@ -1,14 +1,13 @@
 #ifndef PDFPREVIEWPAGE_H
 #define PDFPREVIEWPAGE_H
 
-#include <QObject>
 #include "previewpage/base.h"
 
-#include <QtPdf>
 #include <QPdfBookmarkModel>
 #include <QPdfDocument>
 #include <QPdfView>
-#include <QPdfPageRenderer>
+//#include <QPdfPageRenderer>
+//#include <QtPdf>
 
 /*
 class QPdfWidget : public QPdfView {
@@ -46,6 +45,7 @@ public:
 
 public Q_SLOTS:
     void updateInfo(Peony::FileInfo *info) override;
+    void updateInfo(QString path);
 };
 
 #endif // PDFPREVIEWPAGE_H

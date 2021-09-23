@@ -22,8 +22,8 @@ QString PreviewFileType::getExtensionName() {
 }
 
 PreviewFileType::PreviewType PreviewFileType::getPreviewType() {
-    QString path = m_info->filePath();
-    QString type = m_info->fileType();
+    const QString path = m_info->filePath();
+    const QString type = m_info->fileType();
     const QString mimeType = m_info->mimeType();
     qDebug() << "Path :" << path << " \nType:" << type << "\n mimeType:"<<mimeType;
 
@@ -31,10 +31,10 @@ PreviewFileType::PreviewType PreviewFileType::getPreviewType() {
     if (type == "unknown")
         return Other;
     if (mimeType.startsWith("text") ||
-            mimeType == "application/vnd.nokia.qt.qmakeprofile" ||
             mimeType == "application/xml" ||
             mimeType == "application/json" ||
-            mimeType == "application/javascript")
+            mimeType == "application/javascript" ||
+            mimeType == "application/vnd.nokia.qt.qmakeprofile")
         return Text;
     if (mimeType.startsWith("audio"))
         return Audio;
@@ -44,7 +44,7 @@ PreviewFileType::PreviewType PreviewFileType::getPreviewType() {
         return Image;
     if (m_info->isPdfFile())
         return Pdf;
-    if (getExtensionName() == "doc")
+    if (m_info->isOfficeFile())
         return OfficeDoc;
     return Other;
 }

@@ -23,13 +23,21 @@
 PdfJsBridge::PdfJsBridge(QWidget *pParent)
     : QWebEngineView(pParent)
 {
+    //QWebEngineView::settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
+
     m_pWebChannel = new QWebChannel(this);
     m_pBridgeObject = new BridgeObject(this);
-
+    //  custom for peony
     QWebEnginePage *pPage = page();
     if (pPage != nullptr) {
        pPage->settings()->setAttribute(QWebEngineSettings::ShowScrollBars,false);
+
+       pPage->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
+       pPage->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
+       pPage->settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
+       pPage->settings()->setUnknownUrlSchemePolicy(QWebEngineSettings::AllowAllUnknownUrlSchemes);
     }
+    // custom for peony ended here
     connect(this, &QWebEngineView::loadFinished, this, &PdfJsBridge::onLoadFinished);
 }
 

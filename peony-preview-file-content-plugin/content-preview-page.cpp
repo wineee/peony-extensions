@@ -60,7 +60,6 @@ void ContentPreviewPage::startPreview() {
 void ContentPreviewPage::cancel() {
     qDebug() << "in cancel ";
     m_page_manger->cancel();
-
     setCurrentWidget(m_empty_tab_widget);
     QLabel *label = qobject_cast<QLabel*>(m_empty_tab_widget);
     label->setText(tr("Select the file you want to preview..."));

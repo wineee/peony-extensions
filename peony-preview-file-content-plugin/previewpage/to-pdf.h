@@ -3,11 +3,17 @@
 
 #include "previewpage/pdf.h"
 
+#include <QProcess>
+
 class ToPdfPreviewPage : public PdfPreviewPage
 {
 public:
     explicit ToPdfPreviewPage(QWidget *parent = nullptr);
     ~ToPdfPreviewPage() = default;
+
+private:
+    QProcess *m_proc;
+    QString m_pdf_path;
 
     // BasePreviewPage interface
 public:

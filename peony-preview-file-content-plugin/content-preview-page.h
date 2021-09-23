@@ -26,7 +26,6 @@
 
 #include <QStackedWidget>
 #include <memory>
-
 #include <file-watcher.h>
 
 #include "preview-page-plugin-iface.h"

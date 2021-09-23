@@ -38,6 +38,10 @@ void PdfPreviewPage::updateInfo(Peony::FileInfo *info) {
     m_document->load(info->filePath());
 }
 
+void PdfPreviewPage::updateInfo(QString path) {
+    m_document->load(path);
+}
+
 void PdfPreviewPage::cancel() {
     m_document->close();
 }
