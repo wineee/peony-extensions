@@ -20,9 +20,12 @@
  * Javascript code in this page
  */
 
-/**********custom for peony***************/
-// in line 2086,set DEFAULT_SCALE = 'page-fit'
-/******************************************/
+/**********custom for peony**************
+
+ in line 2086  set DEFAULT_SCALE = 'page-fit'
+ in line 7669  set this.removePageBorders = true;
+
+*****************************************/
 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -7625,7 +7628,8 @@ var BaseViewer = function () {
     this.eventBus = options.eventBus || (0, _dom_events.getGlobalEventBus)();
     this.linkService = options.linkService || new _pdf_link_service.SimpleLinkService();
     this.downloadManager = options.downloadManager || null;
-    this.removePageBorders = options.removePageBorders || false;
+    // this.removePageBorders = options.removePageBorders || false;
+    this.removePageBorders = true;
     this.textLayerMode = Number.isInteger(options.textLayerMode) ? options.textLayerMode : _ui_utils.TextLayerMode.ENABLE;
     this.enhanceTextSelection = options.enhanceTextSelection || false;
     this.imageResourcesPath = options.imageResourcesPath || '';
