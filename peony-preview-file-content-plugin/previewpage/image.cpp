@@ -15,11 +15,9 @@ ImagePreviewPage::ImagePreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_vertical_flip_button->setText("垂直翻转");
     connect(m_vertical_flip_button, &QPushButton::clicked, this, &ImagePreviewPage::doVerticalFlip);
 
-    m_layout = new QVBoxLayout(this);
-    m_layout->addWidget(m_image_view);
-    m_layout->addWidget(m_horizontal_flip_button);
-    m_layout->addWidget(m_vertical_flip_button);
-    setLayout(m_layout);
+    base_layout->addWidget(m_image_view);
+    base_layout->addWidget(m_horizontal_flip_button);
+    base_layout->addWidget(m_vertical_flip_button);
 }
 
 ImagePreviewPage::~ImagePreviewPage() {

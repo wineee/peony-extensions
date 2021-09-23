@@ -10,12 +10,10 @@
 OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
     qDebug() << "init OtherPreviewPage";
-    m_layout = new QVBoxLayout(this);
-    setLayout(m_layout);
 
     m_icon = new IconButton(this);
     m_icon->setIconSize(QSize(96, 96));
-    m_layout->addWidget(m_icon);
+    base_layout->addWidget(m_icon);
 
     m_form = new QFormLayout(this);
     m_display_name_label = new QLabel(this);
@@ -34,7 +32,7 @@ OtherPreviewPage::OtherPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 
     QWidget *form = new QWidget(this);
     form->setLayout(m_form);
-    m_layout->addWidget(form);
+    base_layout->addWidget(form);
 }
 
 void OtherPreviewPage::updateInfo(Peony::FileInfo *info)
@@ -68,4 +66,4 @@ void OtherPreviewPage::resizeEvent(QResizeEvent* event) {
     width = qMax(width, 96);
     width = qMin(width, 256);
     m_icon->setIconSize(QSize(width, width * 2/3));
-};
+}

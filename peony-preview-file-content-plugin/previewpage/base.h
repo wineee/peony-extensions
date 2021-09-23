@@ -20,7 +20,7 @@ public:
     virtual void cancel() = 0;
 
 protected:
-    QVBoxLayout *m_layout = nullptr;
+    QVBoxLayout *base_layout;
 
 public Q_SLOTS:
     virtual void updateInfo(Peony::FileInfo *info) = 0;

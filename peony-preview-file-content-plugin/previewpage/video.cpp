@@ -18,13 +18,6 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_play_button = new QPushButton(this);
     m_play_button->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 
-    timer = new QTimer();
-    timer->setInterval(1000 / 4);
-    connect(timer, &QTimer::timeout, this, [=](){
-         m_position_slider->setValue(m_player->position());
-         //qDebug() << m_player->position() << " " << m_player->duration() ;
-    });
-
     connect(m_play_button, &QPushButton::clicked, this, [=]() {
         switch (m_player->state()) {
         case QMediaPlayer::PlayingState:
@@ -36,9 +29,7 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
         }
     });
 
-    connect(m_player, &QMediaPlayer::stateChanged,
-            this, [=](QMediaPlayer::State state)
-    {
+    connect(m_player, &QMediaPlayer::stateChanged, this, [=](QMediaPlayer::State state) {
         switch(state) {
         case QMediaPlayer::PlayingState:
             m_play_button->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
@@ -51,15 +42,21 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
         }
     });
 
-    // position slider
+    /* time event */
+    timer = new QTimer();
+    timer->setInterval(1000 / 4);
+    connect(timer, &QTimer::timeout, this, [=]() {
+         m_position_slider->setValue(m_player->position());
+         //qDebug() << m_player->position() << " " << m_player->duration() ;
+    });
+
+    /* position slider */
     m_position_slider = new Slider(this);
-    connect(m_player, &QMediaPlayer::durationChanged, this, [=](qint64 duration)
-    {
+    connect(m_player, &QMediaPlayer::durationChanged, this, [=](qint64 duration) {
         m_position_slider->setRange(0, duration);
     });
 
-    connect(m_position_slider, &QSlider::sliderMoved,
-            this, [=] (int position) {
+    connect(m_position_slider, &QSlider::sliderMoved, this, [=] (int position) {
         m_player->setPosition(position);
     });
 
@@ -74,24 +71,23 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
         m_player->setPosition(m_position_slider->value());
     });
 
-    connect(m_video_item, &QGraphicsVideoItem::nativeSizeChanged, this, [this]() {
+    /* resize event */
+    connect(m_video_item, &QGraphicsVideoItem::nativeSizeChanged, this, [=]() {
         qDebug() << "nativeSizeChanged:" << m_video_item->boundingRect().isValid();
         QResizeEvent *event = new QResizeEvent(size(), size());
         Q_EMIT resizeEvent(event);
     });
-    // set layout
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->addWidget(m_video_view, 30);
+
+    /* set layout */
+    base_layout->addWidget(m_video_view, 30);
     //m_video_view->setSizePolicy(QSizePolicy::Expanding ,QSizePolicy::Expanding);
     //m_video_view->adjustSize();
-    layout->addStretch(1);
-    layout->addWidget(m_position_slider);
-    //layout->addSpacing(20);
-    layout->addStretch(1);
-    layout->addWidget(m_play_button);
-    layout->addStretch(1);
-    setLayout(layout);
-    m_layout = layout;
+    base_layout->addStretch(1);
+    base_layout->addWidget(m_position_slider);
+    //base_layout->addSpacing(20);
+    base_layout->addStretch(1);
+    base_layout->addWidget(m_play_button);
+    base_layout->addStretch(1);
 }
 
 VideoPreviewPage::~VideoPreviewPage() {

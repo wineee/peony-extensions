@@ -2,12 +2,9 @@
 
 Pdf2PreviewPage::Pdf2PreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
-
     m_pdf_widget = new QPdfWidget(this);
     m_pdf_widget->showFullScreen();
-    m_layout = new QVBoxLayout(this);
-    m_layout->addWidget(m_pdf_widget);
-    setLayout(m_layout);
+    base_layout->addWidget(m_pdf_widget);
 }
 
 void Pdf2PreviewPage::cancel() {

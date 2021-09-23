@@ -10,9 +10,7 @@ HtmlPreviewPage::HtmlPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_web_view->setPage(m_web_page);
     m_web_view->setContentsMargins(0, 0, 0, 0);
 
-    m_layout = new QVBoxLayout(this);
-    m_layout->addWidget(m_web_view);
-    setLayout(m_layout);
+    base_layout->addWidget(m_web_view);
 }
 
 void HtmlPreviewPage::cancel() {

@@ -23,10 +23,8 @@ TextPreviewPage::TextPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     connect(m_save_button, &QPushButton::clicked, this, &TextPreviewPage::saveText);
     m_save_button->setShortcut(QKeySequence(QLatin1String("Ctrl+S")));
 
-    m_layout = new QVBoxLayout(this);
-    setLayout(m_layout);
-    m_layout->addWidget(m_text_edit);
-    m_layout->addWidget(m_save_button);
+    base_layout->addWidget(m_text_edit);
+    base_layout->addWidget(m_save_button);
 }
 
 void TextPreviewPage::cancel() {

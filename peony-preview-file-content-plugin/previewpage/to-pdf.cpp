@@ -33,7 +33,6 @@ void ToPdfPreviewPage::updateInfo(Peony::FileInfo *info) {
             file_name = file_name.left(file_name.lastIndexOf(".")) + ".pdf";
             m_pdf_path = QLatin1String("/tmp/peony/topdf/") + file_name;
             qDebug() << "new file:"+m_pdf_path;
-        //qDebug() << "ToPdfPath: " << Peony::FileInfo::fromPath("file:///tmp/peony/topdf/q.pdf").get()->filePath();
             PdfPreviewPage::updateInfo(m_pdf_path);
         } else {
             qDebug() << QString("libreoffice crash exit with exitCode %1").arg(exitCode);

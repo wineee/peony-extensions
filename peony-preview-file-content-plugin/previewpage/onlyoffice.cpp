@@ -7,13 +7,10 @@ DocPreviewPage::DocPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_web_page = new QWebEnginePage(this);
     m_web_page->load(QUrl("qrc:/onlyoffice/index.html"));
     m_web_page->setWebChannel(m_web_channel);
-    //m_web_view->setUrl(QUrl("qrc:/index.html"));
     m_web_view->setPage(m_web_page);
     m_web_view->setContentsMargins(0, 0, 0, 0);
 
-    m_layout = new QVBoxLayout(this);
-    m_layout->addWidget(m_web_view);
-    setLayout(m_layout);
+    base_layout->addWidget(m_web_view);
 }
 
 void DocPreviewPage::cancel() {

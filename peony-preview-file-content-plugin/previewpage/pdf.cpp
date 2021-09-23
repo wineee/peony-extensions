@@ -25,13 +25,12 @@ PdfPreviewPage::PdfPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_pdf_view->setDocument(m_document);
     m_pdf_view->setZoomMode(QPdfView::FitInView);
     m_pdf_view->setPageMode(QPdfView::MultiPage);
-
-//    m_page_renderer = new QPdfPageRenderer;
-//    m_page_renderer->setDocument(m_document);
-//    m_page_renderer->setRenderMode(QPdfPageRenderer::RenderMode::MultiThreaded);
-    m_layout = new QVBoxLayout(this);
-    m_layout->addWidget(m_pdf_view);
-    setLayout(m_layout);
+/*
+    m_page_renderer = new QPdfPageRenderer;
+    m_page_renderer->setDocument(m_document);
+    m_page_renderer->setRenderMode(QPdfPageRenderer::RenderMode::MultiThreaded);
+*/
+    base_layout->addWidget(m_pdf_view);
 }
 
 void PdfPreviewPage::updateInfo(Peony::FileInfo *info) {
