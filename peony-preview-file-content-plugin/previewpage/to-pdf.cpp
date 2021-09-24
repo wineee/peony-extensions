@@ -2,13 +2,13 @@
 #include "preview-file-type.h"
 
 ToPdfPreviewPage::ToPdfPreviewPage(QWidget *parent):
-    PdfPreviewPage(parent),m_proc(nullptr)
+    Pdf2PreviewPage(parent),m_proc(nullptr)
 {
 
 }
 
 void ToPdfPreviewPage::cancel() {
-    PdfPreviewPage::cancel();
+    Pdf2PreviewPage::cancel();
     if (m_proc != nullptr) {
         m_proc->deleteLater();
         m_proc = nullptr;
@@ -33,7 +33,7 @@ void ToPdfPreviewPage::updateInfo(Peony::FileInfo *info) {
             file_name = file_name.left(file_name.lastIndexOf(".")) + ".pdf";
             m_pdf_path = QLatin1String("/tmp/peony/topdf/") + file_name;
             qDebug() << "new file:"+m_pdf_path;
-            PdfPreviewPage::updateInfo(m_pdf_path);
+            Pdf2PreviewPage::updateInfo(m_pdf_path);
         } else {
             qDebug() << QString("libreoffice crash exit with exitCode %1").arg(exitCode);
         }
