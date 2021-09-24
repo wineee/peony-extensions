@@ -1,7 +1,5 @@
 #include "previewpage/audio.h"
 
-#include <QDebug>
-#include <QMediaPlaylist>
 #include <QStyle>
 
 AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)

@@ -1,6 +1,5 @@
 #include "previewpage/other.h"
 
-#include <QDebug>
 #include <QDateTime>
 #include <QGridLayout>
 #include <QPaintEvent>

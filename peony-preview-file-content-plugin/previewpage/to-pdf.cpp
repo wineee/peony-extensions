@@ -1,4 +1,4 @@
-#include "to-pdf.h"
+#include "previewpage/to-pdf.h"
 #include "preview-file-type.h"
 
 ToPdfPreviewPage::ToPdfPreviewPage(QWidget *parent):

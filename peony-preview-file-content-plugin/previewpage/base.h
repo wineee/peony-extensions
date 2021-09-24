@@ -7,8 +7,8 @@
 #include <QLayout>
 #include <QDebug>
 
-#include "file-info.h"
-#include "file-info-job.h"
+#include <file-info.h>
+#include <file-info-job.h>
 
 class BasePreviewPage : public QFrame
 {
