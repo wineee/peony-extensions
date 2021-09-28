@@ -3,7 +3,6 @@
 
 #include "previewpage/base.h"
 
-#include <QImage>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsView>
 #include <QPushButton>
@@ -27,19 +26,22 @@ private:
 
     QPushButton *m_horizontal_flip_button;
     QPushButton *m_vertical_flip_button;
-    QPushButton *m_reduce_button;//缩小
-    QPushButton *m_enlarge_button;//放大
-    QPushButton *m_adaptiveWidget;//适应图片
-    QPushButton *m_rotate_button;//旋转
+    QPushButton *m_reduce_button;
+    QPushButton *m_enlarge_button;
+    QPushButton *m_rotate_button;
+    QPushButton *m_adaptive_button;
 
     QFrame *m_tool_bar;
     QHBoxLayout *m_tool_layout;
+
+    void initControlQss();
 
     void doHorizontalFlip();
     void doVerticalFlip();
     void doRotate();
     void doReduce();
     void doEnlarge();
+    void doAdaptive();
 
     // BasePreviewPage interface
 public:

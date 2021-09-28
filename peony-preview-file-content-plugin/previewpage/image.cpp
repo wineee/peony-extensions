@@ -1,5 +1,6 @@
 #include "previewpage/image.h"
 
+#include <QImage>
 #include <QMouseEvent>
 
 ImagePreviewPage::ImagePreviewPage(QWidget *parent) : BasePreviewPage(parent)
@@ -22,31 +23,50 @@ ImagePreviewPage::ImagePreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_tool_bar = new QFrame(this);
     m_tool_layout = new QHBoxLayout(m_tool_bar);
 
-    m_horizontal_flip_button = new QPushButton(m_tool_bar);
-    m_horizontal_flip_button->setText("Hfilp");
-    m_tool_layout->addWidget(m_horizontal_flip_button);
-    connect(m_horizontal_flip_button, &QPushButton::clicked, this, &ImagePreviewPage::doHorizontalFlip);
-
-    m_vertical_flip_button = new QPushButton(m_tool_bar);
-    m_vertical_flip_button->setText("Vflip");
-    m_tool_layout->addWidget(m_vertical_flip_button);
-    connect(m_vertical_flip_button, &QPushButton::clicked, this, &ImagePreviewPage::doVerticalFlip);
-
-    m_rotate_button = new QPushButton(m_tool_bar);
-    m_rotate_button->setText("rotate");
-    m_tool_layout->addWidget(m_rotate_button);
-    connect(m_rotate_button, &QPushButton::clicked, this, &ImagePreviewPage::doRotate);
-
-
+    const QSize TOOL_BUTTON = QSize(24,24);
     m_reduce_button = new QPushButton(m_tool_bar);
-    m_reduce_button->setText("reduce");
+    //m_reduce_button->setText("reduce");
+    m_reduce_button->setFixedSize(TOOL_BUTTON);
+    m_reduce_button->setFocusPolicy(Qt::NoFocus);
     m_tool_layout->addWidget(m_reduce_button);
     connect(m_reduce_button, &QPushButton::clicked, this, &ImagePreviewPage::doReduce);
 
     m_enlarge_button = new QPushButton(m_tool_bar);
-    m_enlarge_button->setText("enlarge");
+    //m_enlarge_button->setText("enlarge");
+    m_enlarge_button->setFixedSize(TOOL_BUTTON);
+    m_enlarge_button->setFocusPolicy(Qt::NoFocus);
     m_tool_layout->addWidget(m_enlarge_button);
     connect(m_enlarge_button, &QPushButton::clicked, this, &ImagePreviewPage::doEnlarge);
+
+    m_adaptive_button = new QPushButton(m_tool_bar);
+    //m_adaptive_button->setText("adaptive");
+    m_adaptive_button->setFixedSize(TOOL_BUTTON);
+    m_adaptive_button->setFocusPolicy(Qt::NoFocus);
+    m_tool_layout->addWidget(m_adaptive_button);
+    connect(m_adaptive_button, &QPushButton::clicked, this, &ImagePreviewPage::doAdaptive);
+
+    m_rotate_button = new QPushButton(m_tool_bar);
+    //m_rotate_button->setText("rotate");
+    m_rotate_button->setFixedSize(TOOL_BUTTON);
+    m_rotate_button->setFocusPolicy(Qt::NoFocus);
+    m_tool_layout->addWidget(m_rotate_button);
+    connect(m_rotate_button, &QPushButton::clicked, this, &ImagePreviewPage::doRotate);
+
+    m_horizontal_flip_button = new QPushButton(m_tool_bar);
+    //m_horizontal_flip_button->setText("Hfilp");
+    m_horizontal_flip_button->setFixedSize(TOOL_BUTTON);
+    m_horizontal_flip_button->setFocusPolicy(Qt::NoFocus);
+    m_tool_layout->addWidget(m_horizontal_flip_button);
+    connect(m_horizontal_flip_button, &QPushButton::clicked, this, &ImagePreviewPage::doHorizontalFlip);
+
+    m_vertical_flip_button = new QPushButton(m_tool_bar);
+    //m_vertical_flip_button->setText("Vflip");
+    m_vertical_flip_button->setFixedSize(TOOL_BUTTON);
+    m_vertical_flip_button->setFocusPolicy(Qt::NoFocus);
+    m_tool_layout->addWidget(m_vertical_flip_button);
+    connect(m_vertical_flip_button, &QPushButton::clicked, this, &ImagePreviewPage::doVerticalFlip);
+
+    initControlQss();
 
     base_layout->addWidget(m_image_view);
     base_layout->addWidget(m_tool_bar);
@@ -134,6 +154,11 @@ void ImagePreviewPage::doReduce() {
     this->repaint();
 }
 
+void ImagePreviewPage::doAdaptive() {
+    m_scale = 1;
+    m_image_item->resetTransform();
+}
+
 bool ImagePreviewPage::eventFilter(QObject *watched, QEvent *event) {
     qDebug() << event->type();
     if (event->type() == QEvent::MouseButtonPress) {
@@ -157,4 +182,46 @@ bool ImagePreviewPage::eventFilter(QObject *watched, QEvent *event) {
         setCursor(Qt::ArrowCursor);
     }
     return QObject::eventFilter(watched, event);
+}
+
+void ImagePreviewPage::initControlQss() {
+    bool isdark = palette().color(QPalette::Base).lightness() < 128;
+    m_tool_bar->setStyleSheet("QPushButton{border:0px;border-radius:4px;background:transparent;}");
+    if (isdark) {
+        m_reduce_button->setStyleSheet("QPushButton{background-image: url(:/res/1reduce.png);}"
+                                       "QPushButton:hover{background-image: url(:/res/1reduce_hover.png);}");
+
+        m_enlarge_button->setStyleSheet("QPushButton{background-image: url(:/res/1enlarge.png);}"
+                                        "QPushButton::hover{background-image: url(:/res/1enlarge_hover.png);}");
+
+        m_adaptive_button->setStyleSheet("QPushButton{background:transparent;background-image: url(:/res/1adaptiveWidget.png);}"
+                                         "QPushButton::hover{background-image: url(:/res/1adaptiveWidget_hover.png);}");
+
+        m_rotate_button->setStyleSheet("QPushButton{background-image: url(:/res/1rotate.png);}"
+                                       "QPushButton::hover{background-image: url(:/res/1rotate_hover.png);}");
+
+        m_horizontal_flip_button->setStyleSheet("QPushButton{background-image: url(:/res/1flipH.png);}"
+                                                "QPushButton::hover{background-image: url(:/res/1flipH_hover.png);}");
+
+        m_vertical_flip_button->setStyleSheet("QPushButton{background-image: url(:/res/1flipV.png);}"
+                                              "QPushButton::hover{background-image: url(:/res/1flipV_hover.png);}");
+    } else {
+        m_reduce_button->setStyleSheet("QPushButton{background-image: url(:/res/reduce.png);}"
+                                       "QPushButton:hover{background-image: url(:/res/reduce_hover.png);}");
+
+        m_enlarge_button->setStyleSheet("QPushButton{background-image: url(:/res/enlarge.png);}"
+                                        "QPushButton::hover{background-image: url(:/res/enlarge_hover.png);}");
+
+        m_adaptive_button->setStyleSheet("QPushButton{background:transparent;background-image: url(:/res/adaptiveWidget.png);}"
+                                         "QPushButton::hover{background-image: url(:/res/adaptiveWidget_hover.png);}");
+
+        m_rotate_button->setStyleSheet("QPushButton{background-image: url(:/res/rotate.png);}"
+                                       "QPushButton::hover{background-image: url(:/res/rotate_hover.png);}");
+
+        m_horizontal_flip_button->setStyleSheet("QPushButton{background-image: url(:/res/flipH.png);}"
+                                                "QPushButton::hover{background-image: url(:/res/flipH_hover.png);}");
+
+        m_vertical_flip_button->setStyleSheet("QPushButton{background-image: url(:/res/flipV.png);}"
+                                              "QPushButton::hover{background-image: url(:/res/flipV_hover.png);}");
+    }
 }
