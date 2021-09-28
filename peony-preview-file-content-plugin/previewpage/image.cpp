@@ -1,23 +1,55 @@
 #include "previewpage/image.h"
 
+#include <QMouseEvent>
+
 ImagePreviewPage::ImagePreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
-    m_image_scene  = new QGraphicsScene;
+    m_image_scene = new QGraphicsScene;
     m_image_item = new QGraphicsPixmapItem;
-    m_image_view = new QGraphicsView(m_image_scene);
+    m_image_view = new QGraphicsView;
     m_image_view->setScene(m_image_scene);
 
-    m_horizontal_flip_button = new QPushButton(this);
-    m_horizontal_flip_button->setText("水平翻转");
+    this->setMouseTracking(true);
+    m_image_view->setMouseTracking(true);
+    m_image_view->viewport()->setMouseTracking(true);
+    m_image_view->viewport()->installEventFilter(this);
+    m_image_item->setFlag(QGraphicsItem::ItemIsMovable, true);
+
+    m_scale = 1;
+    m_base_scale = 1;
+    m_is_moveing = false;
+
+    m_tool_bar = new QFrame(this);
+    m_tool_layout = new QHBoxLayout(m_tool_bar);
+
+    m_horizontal_flip_button = new QPushButton(m_tool_bar);
+    m_horizontal_flip_button->setText("Hfilp");
+    m_tool_layout->addWidget(m_horizontal_flip_button);
     connect(m_horizontal_flip_button, &QPushButton::clicked, this, &ImagePreviewPage::doHorizontalFlip);
 
-    m_vertical_flip_button = new QPushButton(this);
-    m_vertical_flip_button->setText("垂直翻转");
+    m_vertical_flip_button = new QPushButton(m_tool_bar);
+    m_vertical_flip_button->setText("Vflip");
+    m_tool_layout->addWidget(m_vertical_flip_button);
     connect(m_vertical_flip_button, &QPushButton::clicked, this, &ImagePreviewPage::doVerticalFlip);
 
+    m_rotate_button = new QPushButton(m_tool_bar);
+    m_rotate_button->setText("rotate");
+    m_tool_layout->addWidget(m_rotate_button);
+    connect(m_rotate_button, &QPushButton::clicked, this, &ImagePreviewPage::doRotate);
+
+
+    m_reduce_button = new QPushButton(m_tool_bar);
+    m_reduce_button->setText("reduce");
+    m_tool_layout->addWidget(m_reduce_button);
+    connect(m_reduce_button, &QPushButton::clicked, this, &ImagePreviewPage::doReduce);
+
+    m_enlarge_button = new QPushButton(m_tool_bar);
+    m_enlarge_button->setText("enlarge");
+    m_tool_layout->addWidget(m_enlarge_button);
+    connect(m_enlarge_button, &QPushButton::clicked, this, &ImagePreviewPage::doEnlarge);
+
     base_layout->addWidget(m_image_view);
-    base_layout->addWidget(m_horizontal_flip_button);
-    base_layout->addWidget(m_vertical_flip_button);
+    base_layout->addWidget(m_tool_bar);
 }
 
 ImagePreviewPage::~ImagePreviewPage() {
@@ -28,65 +60,101 @@ void ImagePreviewPage::updateInfo(Peony::FileInfo *info) {
     QPixmap newPixmap(info->filePath());
     m_image_item = m_image_scene->addPixmap(newPixmap);
     m_image_scene->setSceneRect(QRectF(newPixmap.rect()));
-}
 
-void ImagePreviewPage::cancel() {
-    m_image_scene->clear();
-    m_image_view->resetTransform();
-}
-
-void ImagePreviewPage::paintEvent(QPaintEvent *event) {
-    Q_UNUSED(event)
-    m_image_view->resetTransform();
     int height = m_image_item->pixmap().height();
     int width = m_image_item->pixmap().width();
     int max_height = m_image_view->height();
     int max_width = m_image_view->width();
     int pic_size = qMax(width, height);
     int max_size = qMin(max_width, max_height) - 5;
-    double val = static_cast<double>(max_size) / pic_size;
+    m_base_scale = 1.0 * max_size / pic_size;
+}
+
+void ImagePreviewPage::cancel() {
+    m_image_scene->clear();
+}
+
+void ImagePreviewPage::paintEvent(QPaintEvent *event) {
+    Q_UNUSED(event)
+    m_image_view->resetTransform();
+    double val = m_scale * m_base_scale;
     m_image_view->scale(val, val);
 }
 
 void ImagePreviewPage::doHorizontalFlip() {
-    QImage origin = m_image_item->pixmap().toImage();
-    QImage newImage = QImage(QSize(origin.width(), origin.height()),
+    /*QImage origin_image = m_image_item->pixmap().toImage();
+    QImage new_image = QImage(QSize(origin_image.width(), origin_image.height()),
                                   QImage::Format_ARGB32);
-    QColor tmpColor;
+    QColor tmp_color;
     int r, g, b;
-    for (int i = 0; i < newImage.width(); ++i) {
-        for (int j = 0; j < newImage.height(); ++j) {
-            tmpColor = QColor(origin.pixel(i, j));
-            r = tmpColor.red();
-            g = tmpColor.green();
-            b = tmpColor.blue();
-            newImage.setPixel(newImage.width()-i-1, j, qRgb(r,g,b));
+    for (int i = 0; i < new_image.width(); ++i) {
+        for (int j = 0; j < new_image.height(); ++j) {
+            tmp_color = QColor(origin_image.pixel(i, j));
+            r = tmp_color.red();
+            g = tmp_color.green();
+            b = tmp_color.blue();
+            new_image.setPixel(new_image.width()-i-1, j, qRgb(r,g,b));
         }
     }
-    QPixmap newPixmap;
-    newPixmap.convertFromImage(newImage);
-    m_image_item->setPixmap(newPixmap);
-    m_image_scene->setSceneRect(QRectF(newPixmap.rect()));
+    QPixmap new_pixmap;
+    new_pixmap.convertFromImage(new_image);
+    m_image_item->setPixmap(new_pixmap);
+    m_image_scene->setSceneRect(QRectF(new_pixmap.rect()));*/
+    QRectF r = m_image_item->boundingRect();
+    m_image_item->setTransform(m_image_item->transform()
+                    .translate(r.width() / 2, r.height() /2)
+                    .rotate(180, Qt::YAxis)
+                    .translate(-r.width() / 2, -r.height() / 2));
 }
 
 void ImagePreviewPage::doVerticalFlip() {
-    QImage origin = m_image_item->pixmap().toImage();
-    QImage newImage = QImage(QSize(origin.width(), origin.height()),
-                                  QImage::Format_ARGB32);
-    QColor tmpColor;
-    int r, g, b;
-    for (int i = 0; i < newImage.width(); ++i) {
-        for (int j = 0; j < newImage.height(); ++j) {
-            tmpColor = QColor(origin.pixel(i, j));
-            r = tmpColor.red();
-            g = tmpColor.green();
-            b = tmpColor.blue();
-            newImage.setPixel(i, newImage.height()-j-1, qRgb(r,g,b));
-        }
-    }
-    QPixmap newPixmap;
-    newPixmap.convertFromImage(newImage);
-    m_image_item->setPixmap(newPixmap);
-    m_image_scene->setSceneRect(QRectF(newPixmap.rect()));
+    QRectF r = m_image_item->boundingRect();
+    m_image_item->setTransform(m_image_item->transform()
+                    .translate(r.width() / 2, r.height() /2)
+                    .rotate(180, Qt::XAxis)
+                    .translate(-r.width() / 2, -r.height() / 2));
 }
 
+void ImagePreviewPage::doRotate() {
+    QRectF r = m_image_item->boundingRect();
+    m_image_item->setTransform(m_image_item->transform()
+                    .translate(r.width() / 2, r.height() /2)
+                    .rotate(90)
+                    .translate(-r.width() / 2, -r.height() / 2));
+}
+
+void ImagePreviewPage::doEnlarge() {
+    m_scale += 0.05;
+    this->repaint();
+}
+
+void ImagePreviewPage::doReduce() {
+    if (m_scale > 0.06)
+        m_scale -= 0.05;
+    this->repaint();
+}
+
+bool ImagePreviewPage::eventFilter(QObject *watched, QEvent *event) {
+    qDebug() << event->type();
+    if (event->type() == QEvent::MouseButtonPress) {
+        QMouseEvent *ev = static_cast<QMouseEvent *>(event);
+        m_is_moveing = true;
+        setCursor(Qt::CrossCursor);
+        m_last_point = ev->pos();
+    }
+    if (event->type() == QEvent::MouseMove && m_is_moveing) {
+        QMouseEvent *ev = static_cast<QMouseEvent *>(event);
+        //qDebug() << "R " << ev->pos() <<  ev->globalPos() << ev->screenPos();
+
+        double dx = (ev->pos().x() - m_last_point.x()) / (m_base_scale * m_scale);
+        double dy = (ev->pos().y() - m_last_point.y()) / (m_base_scale * m_scale);
+
+        m_image_item->setTransform(m_image_item->transform().translate(dx, dy));
+        m_last_point = ev->pos();
+    }
+    if (event->type() == QEvent::MouseButtonRelease) {
+        m_is_moveing = false;
+        setCursor(Qt::ArrowCursor);
+    }
+    return QObject::eventFilter(watched, event);
+}
