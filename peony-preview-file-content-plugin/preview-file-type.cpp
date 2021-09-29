@@ -1,6 +1,8 @@
 #include "preview-file-type.h"
 
 #include <file-info-job.h>
+
+#include <QProcess>
 #include <QDebug>
 
 PreviewFileType::PreviewFileType(const QString &uri):
@@ -44,8 +46,14 @@ PreviewFileType::PreviewType PreviewFileType::getPreviewType() {
         return Image;
     if (m_info->isPdfFile())
         return Pdf;
+#ifdef USE_OnlyOffice
     if (m_info->isOfficeFile())
         return OfficeDoc;
+#else
+    bool haveLibreoffice = QProcess::execute("which", QStringList()<<"libreoffice") == 0;
+    if (haveLibreoffice && m_info->isOfficeFile())
+        return OfficeDoc;
+#endif
     return Other;
 }
 

@@ -3,15 +3,17 @@
 
 #include "previewpage/base.h"
 
-#include <repository.h>
 #include <QPlainTextEdit>
 #include <QPushButton>
 
+#ifdef USE_KSyntaxHighlighting
+#include <repository.h>
 namespace KSyntaxHighlighting
 {
 class SyntaxHighlighter;
 class Repository;
 }
+#endif
 
 class TextPreviewPage : public BasePreviewPage
 {
@@ -29,8 +31,10 @@ private:
     QString m_file_path;
     QPushButton *m_save_button;
 
+#ifdef USE_KSyntaxHighlighting
     KSyntaxHighlighting::Repository m_repository;
     KSyntaxHighlighting::SyntaxHighlighter *m_highlighter;
+#endif
 
     void saveText();
 

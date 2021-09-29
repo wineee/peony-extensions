@@ -3,22 +3,24 @@
 #include <QFile>
 #include <QTextStream>
 
+#ifdef USE_KSyntaxHighlighting
 #include <syntaxhighlighter.h>
 #include <definition.h>
 #include <foldingregion.h>
 #include <syntaxhighlighter.h>
 #include <theme.h>
+#endif
 
 TextPreviewPage::TextPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {    
     m_text_edit = new QPlainTextEdit(this);
     m_text_edit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-
+#ifdef USE_KSyntaxHighlighting
     m_highlighter = new KSyntaxHighlighting::SyntaxHighlighter(m_text_edit->document());
     m_highlighter->setTheme((palette().color(QPalette::Base).lightness() < 128) ?
                                 m_repository.defaultTheme(KSyntaxHighlighting::Repository::DarkTheme) :
                                 m_repository.defaultTheme(KSyntaxHighlighting::Repository::LightTheme));
-
+#endif
     m_save_button = new QPushButton(tr("save"), this);
     connect(m_save_button, &QPushButton::clicked, this, &TextPreviewPage::saveText);
     m_save_button->setShortcut(QKeySequence(QLatin1String("Ctrl+S")));
@@ -62,10 +64,11 @@ void TextPreviewPage::updateInfo(Peony::FileInfo *info) {
     m_save_button->setVisible(write_able);
 
     m_text_edit->moveCursor(QTextCursor::Start);
-
+#ifdef USE_KSyntaxHighlighting
     const auto def = m_repository.definitionForMimeType(info->mimeType());
     m_highlighter->setDefinition(def);
     m_highlighter->rehighlight();
+#endif
     file.close();
 }
 

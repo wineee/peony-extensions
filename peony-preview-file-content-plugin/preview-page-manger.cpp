@@ -23,10 +23,17 @@ BasePreviewPage *PreviewPageManger::createPage(PreviewType cas) {
     case PreviewType::Image:
         return new ImagePreviewPage;
     case PreviewType::Pdf:
+#ifdef USE_QTPDF
+        return new PdfPreviewPage;
+#else
         return new Pdf2PreviewPage;
+#endif
     case PreviewType::OfficeDoc:
-        //return new DocPreviewPage;
+#ifdef USE_OnlyOffice
+        return new DocPreviewPage;
+#else
         return new ToPdfPreviewPage;
+#endif
     default:
         return new OtherPreviewPage;
     }

@@ -4,13 +4,17 @@
 #include "previewpage/other.h"
 #include "previewpage/audio.h"
 #include "previewpage/text.h"
-#include "previewpage/pdf.h"
 #include "previewpage/video.h"
 #include "previewpage/image.h"
-#include "previewpage/onlyoffice.h"
 #include "previewpage/html.h"
 #include "previewpage/pdf2.h"
 #include "previewpage/to-pdf.h"
+#ifdef USE_QTPDF
+#include "previewpage/pdf.h"
+#endif
+#ifdef USE_OnlyOffice
+#include "previewpage/onlyoffice.h"
+#endif
 
 #include "content-preview-page.h"
 #include "preview-file-type.h"

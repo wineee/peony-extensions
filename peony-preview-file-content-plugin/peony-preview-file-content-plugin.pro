@@ -1,8 +1,12 @@
 QT += core gui widgets multimedia multimediawidgets \
-webengine webenginewidgets webenginecore webchannel pdf pdfwidgets KSyntaxHighlighting
+webengine webenginewidgets webenginecore webchannel
 
 TARGET = peony-qt-preview-file-content-plugin videographicsitem
 TEMPLATE = lib
+
+#DEFINES += USE_QTPDF
+DEFINES += USE_KSyntaxHighlighting
+#DEFINES += USE_OnlyOffice
 
 DEFINES += PEONYQTPREVIEWFILECONTENTPLUGIN_LIBRARY
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -16,6 +20,22 @@ CONFIG += debug c++11 link_pkgconfig plugin no_keywords
 
 PKGCONFIG += peony
 
+if(contains(DEFINES, USE_KSyntaxHighlighting)) {
+    QT += KSyntaxHighlighting
+}
+
+if(contains(DEFINES, USE_QTPDF)) {
+    QT += pdf pdfwidgets
+    SOURCES += previewpage/pdf.cpp
+    HEADERS += previewpage/pdf.h
+}
+
+if(contains(DEFINES, USE_OnlyOffice)) {
+    QT += KSyntaxHighlighting
+    SOURCES += previewpage/onlyoffice.cpp
+    HEADERS += previewpage/onlyoffice.h
+}
+
 SOURCES += \
     preview-file-type.cpp \
     preview-page-manger.cpp \
@@ -25,10 +45,8 @@ SOURCES += \
     components/slider.cpp \
     content-preview-page-factory.cpp \
     content-preview-page.cpp \
-    previewpage/onlyoffice.cpp \
     previewpage/html.cpp \
     previewpage/image.cpp \
-    previewpage/pdf.cpp \
     previewpage/pdf2.cpp \
     previewpage/to-pdf.cpp \
     previewpage/video.cpp \
@@ -43,11 +61,9 @@ HEADERS += \
     components/icon-button.h \
     components/slider.h \
     content-preview-page-factory.h \
-    previewpage/onlyoffice.h \
     previewpage/html.h \
     previewpage/image.h \
     previewpage/other.h \
-    previewpage/pdf.h \
     peony-qt-preview-file-content-plugin_global.h \
     previewpage/pdf2.h \
     previewpage/to-pdf.h \
