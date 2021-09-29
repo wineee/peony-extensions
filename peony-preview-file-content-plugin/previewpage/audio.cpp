@@ -4,20 +4,19 @@
 
 AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
 {
+    m_player = new QMediaPlayer(this, QMediaPlayer::LowLatency);
+
+    /* play button */
     m_button = new QPushButton(this);
     m_button->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
-
-    m_player = new QMediaPlayer(this, QMediaPlayer::LowLatency);
 
     connect(m_button, &QPushButton::clicked, this, [=]() {
         switch (m_player->state()) {
         case QMediaPlayer::PlayingState:
             m_player->pause();
-            timer->stop();
             break;
         default:
             m_player->play();
-            timer->start();
             break;
         }
     });
@@ -26,10 +25,20 @@ AudioPreviewPage::AudioPreviewPage(QWidget *parent) : BasePreviewPage(parent)
         switch(state) {
         case QMediaPlayer::PlayingState:
             m_button->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+            timer->start();
             break;
         default:
             m_button->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+            timer->stop();
             break;
+        }
+    });
+
+    /* loop play */
+    connect(m_player, &QMediaPlayer::mediaStatusChanged, this, [=](QMediaPlayer::MediaStatus status) {
+        if (status == QMediaPlayer::EndOfMedia) {
+            m_player->setPosition(0);
+            m_player->play();
         }
     });
 
@@ -89,12 +98,14 @@ void AudioPreviewPage::updateInfo(Peony::FileInfo *info) {
     m_player->play();
     timer->start();
     m_base_icon = QIcon::fromTheme(info->iconName(), QIcon::fromTheme("text-x-generic"));
+    // default value
+    m_title_label->setText(info->desktopName());
+    m_author_label->setText(tr("unknown"));
 }
 
 void AudioPreviewPage::cancel() {
     qDebug() << "AudioPreviewPage::cancel";
     m_player->stop();
-    timer->stop();
 }
 
 void AudioPreviewPage::updateMeta() {
@@ -109,6 +120,11 @@ void AudioPreviewPage::updateMeta() {
     QVariant autor = m_player->metaData("ContributingArtist");
     if (autor.isValid())
         m_author_label->setText(autor.toString());
+    else {
+        QVariant composer = m_player->metaData("Composer");
+        if(composer.isValid())
+            m_author_label->setText(composer.toString());
+    }
     // qDebug() << m_player->availableMetaData() << "\n";
 }
 

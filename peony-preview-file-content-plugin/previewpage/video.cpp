@@ -15,6 +15,7 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_video_scene->addItem(m_video_item);
     m_player->setVideoOutput(m_video_item);
 
+    /* play button */
     m_play_button = new QPushButton(this);
     m_play_button->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 
@@ -42,6 +43,16 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
         }
     });
 
+    /* loop play */
+    connect(m_player, &QMediaPlayer::mediaStatusChanged, this, [=](QMediaPlayer::MediaStatus status) {
+        if (status == QMediaPlayer::EndOfMedia) {
+            m_player->setMedia(m_player->media());
+            // if not reload, error:"internal data stream error"
+            m_player->setPosition(0);
+            m_player->play();
+        }
+    });
+
     /* time event */
     timer = new QTimer();
     timer->setInterval(1000 / 4);
@@ -55,10 +66,7 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     connect(m_player, &QMediaPlayer::durationChanged, this, [=](qint64 duration) {
         m_position_slider->setRange(0, duration);
     });
-
-    connect(m_position_slider, &QSlider::sliderMoved, this, [=] (int position) {
-        m_player->setPosition(position);
-    });
+    m_position_slider->setValue(0);
 
     connect(m_position_slider, &Slider::sliderMoved, this, [=]() {
         timer->stop();
@@ -81,7 +89,6 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     /* set layout */
     base_layout->addWidget(m_video_view, 30);
     //m_video_view->setSizePolicy(QSizePolicy::Expanding ,QSizePolicy::Expanding);
-    //m_video_view->adjustSize();
     base_layout->addStretch(1);
     base_layout->addWidget(m_position_slider);
     //base_layout->addSpacing(20);
