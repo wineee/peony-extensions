@@ -8,7 +8,7 @@ Pdf2PreviewPage::Pdf2PreviewPage(QWidget *parent) : BasePreviewPage(parent)
 }
 
 void Pdf2PreviewPage::cancel() {
-    m_pdf_widget->closeDocument();
+    //m_pdf_widget->closeDocument();
 }
 
 void Pdf2PreviewPage::updateInfo(Peony::FileInfo *info) {
