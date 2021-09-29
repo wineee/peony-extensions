@@ -19,6 +19,7 @@ ImagePreviewPage::ImagePreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_scale = 1;
     m_base_scale = 1;
     m_is_moveing = false;
+    m_is_rotate90 = false;
 
     m_tool_bar = new QFrame(this);
     m_tool_layout = new QHBoxLayout(m_tool_bar);
@@ -77,17 +78,10 @@ ImagePreviewPage::~ImagePreviewPage() {
 }
 
 void ImagePreviewPage::updateInfo(Peony::FileInfo *info) {
-    QPixmap newPixmap(info->filePath());
-    m_image_item = m_image_scene->addPixmap(newPixmap);
-    m_image_scene->setSceneRect(QRectF(newPixmap.rect()));
-
-    int height = m_image_item->pixmap().height();
-    int width = m_image_item->pixmap().width();
-    int max_height = m_image_view->height();
-    int max_width = m_image_view->width();
-    int pic_size = qMax(width, height);
-    int max_size = qMin(max_width, max_height) - 5;
-    m_base_scale = 1.0 * max_size / pic_size;
+    m_is_rotate90 = false;
+    QPixmap new_pixmap(info->filePath());
+    m_image_item = m_image_scene->addPixmap(new_pixmap);
+    m_image_scene->setSceneRect(QRectF(new_pixmap.rect()));
 }
 
 void ImagePreviewPage::cancel() {
@@ -97,6 +91,15 @@ void ImagePreviewPage::cancel() {
 void ImagePreviewPage::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event)
     m_image_view->resetTransform();
+
+    int height = m_image_item->pixmap().height();
+    int width = m_image_item->pixmap().width();
+    int max_height = m_image_view->height();
+    int max_width = m_image_view->width();
+    int pic_size = qMax(width, height);
+    int max_size = qMin(max_width, max_height) - 5;
+    m_base_scale = 1.0 * max_size / pic_size;
+
     double val = m_scale * m_base_scale;
     m_image_view->scale(val, val);
 }
@@ -123,7 +126,7 @@ void ImagePreviewPage::doHorizontalFlip() {
     QRectF r = m_image_item->boundingRect();
     m_image_item->setTransform(m_image_item->transform()
                     .translate(r.width() / 2, r.height() /2)
-                    .rotate(180, Qt::YAxis)
+                    .rotate(180, m_is_rotate90 ? Qt::XAxis : Qt::YAxis)
                     .translate(-r.width() / 2, -r.height() / 2));
 }
 
@@ -131,7 +134,7 @@ void ImagePreviewPage::doVerticalFlip() {
     QRectF r = m_image_item->boundingRect();
     m_image_item->setTransform(m_image_item->transform()
                     .translate(r.width() / 2, r.height() /2)
-                    .rotate(180, Qt::XAxis)
+                    .rotate(180, m_is_rotate90 ? Qt::YAxis : Qt::XAxis)
                     .translate(-r.width() / 2, -r.height() / 2));
 }
 
@@ -141,6 +144,7 @@ void ImagePreviewPage::doRotate() {
                     .translate(r.width() / 2, r.height() /2)
                     .rotate(90)
                     .translate(-r.width() / 2, -r.height() / 2));
+    m_is_rotate90 = !m_is_rotate90;
 }
 
 void ImagePreviewPage::doEnlarge() {

@@ -21,6 +21,7 @@ private:
 
     qreal m_scale;
     qreal m_base_scale;
+    bool m_is_rotate90;
     bool m_is_moveing;
     QPoint m_last_point;
 
