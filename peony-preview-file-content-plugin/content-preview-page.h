@@ -1,7 +1,7 @@
 /*
  * Peony-Qt's Library
  *
- * Copyright (C) 2019, Tianjin KYLIN Information Technology Co., Ltd.
+ * Copyright (C) 2021, KylinSoft Co, Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this library.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Authors: Yue Lan <lanyue@kylinos.cn>
+ * Authors: Lu Hongxu <lhongxu@outlook.com>
  *
  */
-
 
 #ifndef CONTENTPREVIEWPAGE_H
 #define CONTENTPREVIEWPAGE_H
