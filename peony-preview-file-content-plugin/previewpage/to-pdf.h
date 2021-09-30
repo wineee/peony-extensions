@@ -1,11 +1,22 @@
 #ifndef TOPDFPREVIEWPAGE_H
 #define TOPDFPREVIEWPAGE_H
 
-#include "previewpage/pdf2.h"
 
 #include <QProcess>
 
-class ToPdfPreviewPage : public Pdf2PreviewPage
+#ifdef USE_OnlyOffice
+
+#include "previewpage/pdf.h"
+typedef PdfPreviewPage ToPdfBaseClass;
+
+#else
+
+#include "previewpage/pdf2.h"
+typedef Pdf2PreviewPage ToPdfBaseClass;
+
+#endif
+
+class ToPdfPreviewPage : public ToPdfBaseClass
 {
 public:
     explicit ToPdfPreviewPage(QWidget *parent = nullptr);

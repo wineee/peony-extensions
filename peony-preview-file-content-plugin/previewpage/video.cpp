@@ -8,7 +8,7 @@ VideoPreviewPage::VideoPreviewPage(QWidget *parent) : BasePreviewPage(parent)
     m_player = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
     m_video_item = new QGraphicsVideoItem;
     m_video_scene = new QGraphicsScene;
-    m_video_view = new QGraphicsView(m_video_scene);
+    m_video_view = new QGraphicsView(m_video_scene, this);
     m_video_view->setDragMode(QGraphicsView::NoDrag);
     m_video_view->setStyleSheet("padding:0px;border:0px");
 
